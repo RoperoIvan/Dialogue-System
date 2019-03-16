@@ -113,9 +113,17 @@
   <ItemGroup>
     <ClCompile Include="DialogTree.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="p2Log.cpp" />
+    <ClCompile Include="PugiXml\src\pugixml.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DialogTree.h" />
+    <ClInclude Include="p2Log.h" />
+    <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
+    <ClInclude Include="PugiXml\src\pugixml.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Game\Tree.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
