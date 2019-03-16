@@ -18,12 +18,6 @@ DialogueOption::DialogueOption()
 
 }
 
-DialogNode::DialogNode(string t)
-{
-	text = t;
-
-}
-
 void DialogTree::init()
 {
 	LoadTreeData("Tree.xml");
@@ -63,19 +57,16 @@ void DialogTree::init()
 void DialogTree::destroytree()
 {
 	for (int i = 0; i < dialogNodes.size(); i++)
-	{
 		delete dialogNodes[i];
 		
-	}
 	dialogNodes.clear();
 }
 
 int DialogTree::performdialogue()
 {
 	if (dialogNodes.empty())
-	{
 		return -1;
-	}
+
 	else
 	{
 		LOG("Is not empty!");
@@ -86,50 +77,34 @@ int DialogTree::performdialogue()
 	{
 		cout << currentNode->text << "\n\n";
 		for (int i = 0; i < currentNode->dialogOptions.size(); i++)
-		{
 			cout << i + 1 << ": " << currentNode->dialogOptions[i].text << endl;
-		}
+		
 		cout << endl;
 		int input;
 		cin >> input;
 		input--;
-		if (input < 0 || input > currentNode->dialogOptions.size())
-		{
+
+		if (input < 0 || input >= currentNode->dialogOptions.size())
 			cout << "Invalid input \n\n";
-		}
+		
 		else
 		{
 			//Check for end of conversation
-			LOG("holita");
-			/*if (currentNode->dialogOptions[input].nextNode == nullptr)
-				return currentNode->dialogOptions[input].returnCode;*/
-			if (currentNode->dialogOptions[input].id == 0)
-			{
+			if (currentNode->dialogOptions[input].id >= dialogNodes.size())
 				return currentNode->dialogOptions[input].returnCode;
-			}
+			
 			for (int j = 0; j < dialogNodes.size(); j++)
 			{
 				if (currentNode->dialogOptions[input].id == dialogNodes[j]->id)
-				{
-					
+				{					
 					currentNode = dialogNodes[j];
 					break;
 				}
 			}
-			
-			/*currentNode = currentNode->dialogOptions[input].nextNode;*/
-		
 		}
 		
 		cout << endl;
 	}
-}
-
-DialogueOption::DialogueOption(string t, DialogNode* n, int r)
-{
-	text = t;
-	nextNode = n;
-	returnCode = r;
 }
 
 bool DialogTree::LoadTreeData(const char* file)
@@ -145,9 +120,6 @@ bool DialogTree::LoadTreeData(const char* file)
 	}
 	else
 	LOG("XML was loaded succesfully!");
-
-	
-	int t = 0;
 	
 	//Filling the dialogue tree information
 	for (pugi::xml_node n = tree_file.child("dialogtree").child("node");n != NULL; n = n.next_sibling("node"))
@@ -158,8 +130,6 @@ bool DialogTree::LoadTreeData(const char* file)
 		LoadNodesDetails(n, node);
 		dialogNodes.push_back(node);	
 	}
-	
-
 	return ret;
 }
 
@@ -171,12 +141,7 @@ bool DialogTree::LoadNodesDetails(pugi::xml_node& text_node, DialogNode* npc)
 		DialogueOption* option = new DialogueOption;
 		option->text.assign(op.attribute("line").as_string());
 		option->id = op.attribute("id").as_int();
-		
-		LOG("HOLA");
-		/*option->nextNode = dialogNodes[option->id];*/
-		LOG("HOLA");
 		npc->dialogOptions.push_back(*option);
-		LOG("HOLA");
 	}
 	return ret;
 }

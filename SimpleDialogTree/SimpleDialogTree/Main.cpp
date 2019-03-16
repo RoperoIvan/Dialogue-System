@@ -1,7 +1,3 @@
-#include <iostream>
-#include <cstdlib>
-#include <string>
-#include <list>
 #include "DialogTree.h"
 
 using namespace std;

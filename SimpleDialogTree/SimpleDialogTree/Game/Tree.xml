@@ -6,20 +6,20 @@
    <option line="Hello strange voice" id="2"/>
   </node> 
    <node  line="I don't want to talk to you" id="1">
-     <option  line="Aww" id="0"/>
+     <option  line="Aww" id="5"/>
  </node>
  <node  line="I have a quest for you" id="2">
-    <option  line="K bye" id="0"/>
+    <option  line="K bye" id="5"/>
     <option line="What is it" id="4"/>
     <option  line="Whats the pay" id="3"/>
  </node>
  <node line="Yes, you will get gold you greedy swine" id="3">  
     <option line="Ok what is it" id="4"/>
-     <option   line="That sucks im out" id="0"/>
+     <option   line="That sucks im out" id="5"/>
  </node>
  <node   line="Collect ten Dandillions" id="4"> 
-     <option line="Lets do it" id="0"/>
-     <option  line="No way" id="0"/>
+     <option line="Lets do it" id="5"/>
+     <option  line="No way" id="5"/>
  </node>
 
 </dialogtree>

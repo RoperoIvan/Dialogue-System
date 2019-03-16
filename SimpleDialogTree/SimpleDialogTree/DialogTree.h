@@ -26,7 +26,6 @@ class DialogNode
 {
 public:
 	DialogNode::DialogNode();
-	DialogNode(string t);
 	string text;
 	vector <DialogueOption> dialogOptions;
 	int id;
@@ -44,7 +43,6 @@ public:
 
 	bool LoadTreeData(const char*);
 	bool LoadNodesDetails(pugi::xml_node& text_node, DialogNode* npc);
-	bool LoadOptionsDetails(pugi::xml_node& text_node, DialogNode* dialog);
 private:
 	vector <DialogNode*> dialogNodes;
 	int nodes = 5;
@@ -53,7 +51,6 @@ public:
 
 	pugi::xml_document	tree_file;
 	pugi::xml_node		tree;
-	/*pugi::xml_node		nodes;*/
 };
 
 #endif
