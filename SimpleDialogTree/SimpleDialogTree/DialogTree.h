@@ -15,7 +15,6 @@ class DialogueOption
 {
 public:
 	DialogueOption();
-	DialogueOption(string t, DialogNode* n, int r);
 	string text;
 	DialogNode* nextNode;
 	int id;
@@ -36,19 +35,30 @@ public:
 	DialogTree();
 	~DialogTree();
 
+public:
+	vector <DialogNode*> dialogNodes;
+	int treeid;
+public:
+
+	
+};
+
+class Dialogue
+{
+public:
+	Dialogue();
+
 	void init();
 	void destroytree();
 
-	int performdialogue();
-
-	bool LoadTreeData(const char*);
+	int performdialogue(int treeid);
+	bool LoadDialogue(const char*);
+	bool LoadTreeData(pugi::xml_node& trees, DialogTree* oak);
 	bool LoadNodesDetails(pugi::xml_node& text_node, DialogNode* npc);
 private:
-	vector <DialogNode*> dialogNodes;
-	int nodes = 5;
+	vector <DialogTree*> dialogTrees;
 
 public:
-
 	pugi::xml_document	tree_file;
 	pugi::xml_node		tree;
 };

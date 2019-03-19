@@ -4,11 +4,12 @@ using namespace std;
 
 int main()
 {
-	DialogTree d;
+	Dialogue d;
+	int id = 2;
 
 	d.init();
 	int rv;
-	rv = d.performdialogue();
+	rv = d.performdialogue(id);
 
 	if (rv == 1)
 	{

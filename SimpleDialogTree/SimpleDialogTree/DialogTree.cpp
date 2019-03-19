@@ -18,60 +18,47 @@ DialogueOption::DialogueOption()
 
 }
 
-void DialogTree::init()
+void Dialogue::init()
 {
-	LoadTreeData("Tree.xml");
+	LoadDialogue("Tree.xml");
+}
 
-	/*for (int i = 0; i < nodes; i++)
+Dialogue::Dialogue()
+{
+}
+
+void Dialogue::destroytree()
+{
+	for (int j = 0; j < dialogTrees.size(); j++)
 	{
-		DialogNode * nodes = new DialogNode("Hello brave warrior");
-	}*/
-	/*DialogNode* node0 = new DialogNode("Hello brave warrior");
-	DialogNode* node1 = new DialogNode("I don't want to talk to you");
-	DialogNode* node2 = new DialogNode(" I have a quest for you");
-	DialogNode* node3 = new DialogNode("Yes, you will get gold you greedy swine");
-	DialogNode* node4 = new DialogNode("Collect ten Dandillions");
+		for (int i = 0; i < dialogTrees[j]->dialogNodes.size(); i++)
+			delete dialogTrees[j]->dialogNodes[i];
 
-	
-	node0->dialogOptions.push_back(DialogueOption("Supp Noob", node1, 0));
-	node0->dialogOptions.push_back(DialogueOption("Hello strange voice", node2, 0));
-	dialogNodes.push_back(node0);
-
-	node1->dialogOptions.push_back(DialogueOption("Aww", nullptr, 0));
-	dialogNodes.push_back(node1);
-
-	node2->dialogOptions.push_back(DialogueOption("K bye", nullptr, 0));
-	node2->dialogOptions.push_back(DialogueOption("What is it", node4, 0));
-	node2->dialogOptions.push_back(DialogueOption("Whats the pay", node3, 0));
-	dialogNodes.push_back(node2);
-
-	node3->dialogOptions.push_back(DialogueOption("Ok what is it", node4, 0));
-	node3->dialogOptions.push_back(DialogueOption("That sucks im out", nullptr, 0));
-	dialogNodes.push_back(node3);
-
-	node4->dialogOptions.push_back(DialogueOption("Lets do it", nullptr, 1));
-	node4->dialogOptions.push_back(DialogueOption("No way", nullptr, 0));
-	dialogNodes.push_back(node4);*/
+		dialogTrees[j]->dialogNodes.clear();
+		delete dialogTrees[j];
+	}
+	dialogTrees.clear();
 }
 
-void DialogTree::destroytree()
+int Dialogue::performdialogue(int treeid)
 {
-	for (int i = 0; i < dialogNodes.size(); i++)
-		delete dialogNodes[i];
-		
-	dialogNodes.clear();
-}
-
-int DialogTree::performdialogue()
-{
-	if (dialogNodes.empty())
+	if (dialogTrees.empty())
 		return -1;
 
 	else
 	{
 		LOG("Is not empty!");
 	}
-	DialogNode* currentNode = dialogNodes[0];
+	/*DialogTree* currentTree = dialogTrees[treeid];
+
+	if (dialogTrees[treeid]->dialogNodes.empty())
+		return -1;
+
+	else
+	{
+		LOG("Is not empty!");
+	}*/
+	DialogNode* currentNode = dialogTrees[treeid]->dialogNodes[0];
 
 	while (true)
 	{
@@ -90,14 +77,14 @@ int DialogTree::performdialogue()
 		else
 		{
 			//Check for end of conversation
-			if (currentNode->dialogOptions[input].id >= dialogNodes.size())
+			if (currentNode->dialogOptions[input].id >= dialogTrees[treeid]->dialogNodes.size())
 				return currentNode->dialogOptions[input].returnCode;
 			
-			for (int j = 0; j < dialogNodes.size(); j++)
+			for (int j = 0; j < dialogTrees[treeid]->dialogNodes.size(); j++)
 			{
-				if (currentNode->dialogOptions[input].id == dialogNodes[j]->id)
+				if (currentNode->dialogOptions[input].id == dialogTrees[treeid]->dialogNodes[j]->id)
 				{					
-					currentNode = dialogNodes[j];
+					currentNode = dialogTrees[treeid]->dialogNodes[j];
 					break;
 				}
 			}
@@ -107,7 +94,7 @@ int DialogTree::performdialogue()
 	}
 }
 
-bool DialogTree::LoadTreeData(const char* file)
+bool Dialogue::LoadDialogue(const char* file)
 {
 	bool ret = true;
 
@@ -119,21 +106,38 @@ bool DialogTree::LoadTreeData(const char* file)
 		ret = false;
 	}
 	else
-	LOG("XML was loaded succesfully!");
+		LOG("XML was loaded succesfully!");
+
+	for (pugi::xml_node t = tree_file.child("dialogue").child("dialogtree"); t != NULL; t = t.next_sibling("dialogtree"))
+	{
+		DialogTree* tr = new DialogTree;
+		tr->treeid = t.attribute("treeid").as_int();
+		LoadTreeData(t, tr);
+		dialogTrees.push_back(tr);
+	}
+
+	return ret;
+}
+
+bool Dialogue::LoadTreeData(pugi::xml_node& trees, DialogTree* oak)
+{
+	bool ret = true;
+
+	
 	
 	//Filling the dialogue tree information
-	for (pugi::xml_node n = tree_file.child("dialogtree").child("node");n != NULL; n = n.next_sibling("node"))
+	for (pugi::xml_node n = trees.child("node");n != NULL; n = n.next_sibling("node"))
 	{
 		DialogNode* node = new DialogNode;
 		node->text.assign(n.attribute("line").as_string());
 		node->id = n.attribute("id").as_int();
 		LoadNodesDetails(n, node);
-		dialogNodes.push_back(node);	
+		oak->dialogNodes.push_back(node);
 	}
 	return ret;
 }
 
-bool DialogTree::LoadNodesDetails(pugi::xml_node& text_node, DialogNode* npc)
+bool Dialogue::LoadNodesDetails(pugi::xml_node& text_node, DialogNode* npc)
 {
 	bool ret = true;
 	for (pugi::xml_node op = text_node.child("option"); op != NULL; op = op.next_sibling("option"))
