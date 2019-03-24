@@ -9,37 +9,29 @@
 
 using namespace std;
 
-class DialogNode;
+struct DialogNode;
 
-class DialogueOption
+struct DialogueOption
 {
 public:
-	DialogueOption();
 	string text;
 	DialogNode* nextNode;
 	int id;
 	int returnCode;
 };
 
-class DialogNode
+struct DialogNode
 {
 public:
-	DialogNode::DialogNode();
 	string text;
 	vector <DialogueOption> dialogOptions;
 	int id;
 };
-class DialogTree
+struct DialogTree
 {
-public:
-	DialogTree();
-	~DialogTree();
-
 public:
 	vector <DialogNode*> dialogNodes;
 	int treeid;
-public:
-
 	
 };
 
@@ -61,6 +53,7 @@ private:
 public:
 	pugi::xml_document	tree_file;
 	pugi::xml_node		tree;
+
 };
 
 #endif

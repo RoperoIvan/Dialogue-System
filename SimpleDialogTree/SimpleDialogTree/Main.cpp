@@ -5,7 +5,8 @@ using namespace std;
 int main()
 {
 	Dialogue d;
-	int id = 2;
+
+	int id = 0;
 
 	d.init();
 	int rv;

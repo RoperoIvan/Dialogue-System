@@ -1,30 +1,12 @@
 #include "DialogTree.h"
 
-
-DialogTree::DialogTree()
+Dialogue::Dialogue()
 {
-}
-DialogTree::~DialogTree()
-{
-}
-
-DialogNode::DialogNode()
-{
-
-}
-
-DialogueOption::DialogueOption()
-{
-
 }
 
 void Dialogue::init()
 {
 	LoadDialogue("Tree.xml");
-}
-
-Dialogue::Dialogue()
-{
 }
 
 void Dialogue::destroytree()
@@ -38,6 +20,8 @@ void Dialogue::destroytree()
 		delete dialogTrees[j];
 	}
 	dialogTrees.clear();
+
+
 }
 
 int Dialogue::performdialogue(int treeid)
@@ -49,16 +33,18 @@ int Dialogue::performdialogue(int treeid)
 	{
 		LOG("Is not empty!");
 	}
-	/*DialogTree* currentTree = dialogTrees[treeid];
 
-	if (dialogTrees[treeid]->dialogNodes.empty())
-		return -1;
-
-	else
-	{
-		LOG("Is not empty!");
-	}*/
 	DialogNode* currentNode = dialogTrees[treeid]->dialogNodes[0];
+	
+	string name = "hola";
+	
+	
+	size_t found = currentNode->text.find(name);
+	if (found != string::npos)
+	{
+		LOG("que tal");
+		currentNode->text.replace(currentNode->text.find(name), 4, "manuel");
+	}
 
 	while (true)
 	{
@@ -92,6 +78,8 @@ int Dialogue::performdialogue(int treeid)
 		
 		cout << endl;
 	}
+	
+
 }
 
 bool Dialogue::LoadDialogue(const char* file)
@@ -114,8 +102,8 @@ bool Dialogue::LoadDialogue(const char* file)
 		tr->treeid = t.attribute("treeid").as_int();
 		LoadTreeData(t, tr);
 		dialogTrees.push_back(tr);
+		
 	}
-
 	return ret;
 }
 
@@ -123,8 +111,6 @@ bool Dialogue::LoadTreeData(pugi::xml_node& trees, DialogTree* oak)
 {
 	bool ret = true;
 
-	
-	
 	//Filling the dialogue tree information
 	for (pugi::xml_node n = trees.child("node");n != NULL; n = n.next_sibling("node"))
 	{
@@ -133,6 +119,7 @@ bool Dialogue::LoadTreeData(pugi::xml_node& trees, DialogTree* oak)
 		node->id = n.attribute("id").as_int();
 		LoadNodesDetails(n, node);
 		oak->dialogNodes.push_back(node);
+		
 	}
 	return ret;
 }
