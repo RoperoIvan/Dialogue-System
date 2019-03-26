@@ -36,18 +36,25 @@ int Dialogue::performdialogue(int treeid)
 
 	DialogNode* currentNode = dialogTrees[treeid]->dialogNodes[0];
 	
-	string name = "hola";
+	string name = "PLAYERNAME";
 	
 	
-	size_t found = currentNode->text.find(name);
-	if (found != string::npos)
-	{
-		LOG("que tal");
-		currentNode->text.replace(currentNode->text.find(name), 4, "manuel");
-	}
+	
 
 	while (true)
 	{
+		//Check for tree tags
+		/*dialogTrees[treeid]->CheckTags(dialogTrees[treeid]->karma);*/
+
+
+		//Put the player's name in a the lines of dialog
+		for (int i = 0; i < currentNode->text.size(); i++)
+		{
+			size_t found = currentNode->text.find(name);
+			if (found != string::npos)
+				currentNode->text.replace(currentNode->text.find(name), 10, "Oscar");
+		}
+	
 		cout << currentNode->text << "\n\n";
 		for (int i = 0; i < currentNode->dialogOptions.size(); i++)
 			cout << i + 1 << ": " << currentNode->dialogOptions[i].text << endl;
@@ -100,6 +107,7 @@ bool Dialogue::LoadDialogue(const char* file)
 	{
 		DialogTree* tr = new DialogTree;
 		tr->treeid = t.attribute("treeid").as_int();
+		tr->karma = t.attribute("karma").as_int();
 		LoadTreeData(t, tr);
 		dialogTrees.push_back(tr);
 		
@@ -134,5 +142,18 @@ bool Dialogue::LoadNodesDetails(pugi::xml_node& text_node, DialogNode* npc)
 		option->id = op.attribute("id").as_int();
 		npc->dialogOptions.push_back(*option);
 	}
+	return ret;
+}
+
+bool DialogTree::CheckTags(int tag)
+{
+	bool ret = true;
+
+
+
+
+
+
+
 	return ret;
 }

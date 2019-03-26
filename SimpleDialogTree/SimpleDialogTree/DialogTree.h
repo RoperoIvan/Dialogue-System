@@ -27,12 +27,17 @@ public:
 	vector <DialogueOption> dialogOptions;
 	int id;
 };
-struct DialogTree
+class DialogTree
 {
 public:
+	DialogTree() {};
+	~DialogTree() {};
+
+
+public:
 	vector <DialogNode*> dialogNodes;
-	int treeid;
-	
+	int treeid, karma;
+	bool CheckTags(int tag);
 };
 
 class Dialogue
@@ -47,6 +52,7 @@ public:
 	bool LoadDialogue(const char*);
 	bool LoadTreeData(pugi::xml_node& trees, DialogTree* oak);
 	bool LoadNodesDetails(pugi::xml_node& text_node, DialogNode* npc);
+	
 private:
 	vector <DialogTree*> dialogTrees;
 
