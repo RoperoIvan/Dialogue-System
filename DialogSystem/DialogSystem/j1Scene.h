@@ -2,16 +2,17 @@
 #define __j1SCENE_H__
 
 #include "j1Module.h"
-
+#include "j1DialogSystem.h"
 
 struct SDL_Texture;
 struct SDL_Rect;
-
+struct DialogNode;
+struct DialogOption;
 class GUI;
 class GUI_Image;
 class GUI_Label;
 class GUI_Button;
-
+class DialogTree;
 
 class j1Scene : public j1Module
 {
@@ -44,7 +45,7 @@ public:
 
 
 private:
-
+	j1DialogSystem* d;
 };
 
 #endif // __j1SCENE_H__

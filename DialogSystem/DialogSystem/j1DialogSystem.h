@@ -1,6 +1,7 @@
-#ifndef _DIALOGSYSTEM_H
-#define _DIALOGSYSTEM_H
+#ifndef _J1DIALOGSYSTEM_H
+#define _J1DIALOGSYSTEM_H
 
+#include "j1Module.h"
 #include <string>
 #include <vector>
 #include "j1App.h"
@@ -39,13 +40,17 @@ public:
 	bool CheckTags(int tag);
 };
 
-class Dialogue
+class j1Dialogue : public j1Module
 {
 public:
-	Dialogue();
+	j1Dialogue();
 
-	void init();
-	void destroytree();
+	bool Awake(pugi::xml_node&);
+	bool Start();
+	bool PreUpdate();
+	bool Update(float dt);
+	bool PostUpdate();
+	bool CleanUp();
 
 	int performdialogue(int treeid);
 	bool LoadDialogue(const char*);

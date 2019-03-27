@@ -8,6 +8,7 @@
 #include "j1Render.h"
 #include "j1Window.h"
 #include "j1Scene.h"
+#include "j1DialogSystem.h"
 #include <string>
 #include "GUI.h"
 #include "GUI_Button.h"
@@ -36,7 +37,7 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-
+	d;
 
 	return true;
 }
