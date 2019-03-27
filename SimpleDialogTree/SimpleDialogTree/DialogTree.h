@@ -18,6 +18,7 @@ public:
 	DialogNode* nextNode;
 	int id;
 	int returnCode;
+	int tag;
 };
 
 struct DialogNode

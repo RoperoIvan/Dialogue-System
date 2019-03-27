@@ -73,13 +73,21 @@ int Dialogue::performdialogue(int treeid)
 			if (currentNode->dialogOptions[input].id >= dialogTrees[treeid]->dialogNodes.size())
 				return currentNode->dialogOptions[input].returnCode;
 			
+			if (currentNode->dialogOptions[input].tag != 0)
+			{
+				currentNode = dialogTrees[treeid]->dialogNodes[currentNode->dialogOptions[input].tag];
+				break;
+			}
+
 			for (int j = 0; j < dialogTrees[treeid]->dialogNodes.size(); j++)
 			{
+				
 				if (currentNode->dialogOptions[input].id == dialogTrees[treeid]->dialogNodes[j]->id)
-				{					
+				{
 					currentNode = dialogTrees[treeid]->dialogNodes[j];
 					break;
 				}
+				
 			}
 		}
 		
@@ -140,6 +148,7 @@ bool Dialogue::LoadNodesDetails(pugi::xml_node& text_node, DialogNode* npc)
 		DialogueOption* option = new DialogueOption;
 		option->text.assign(op.attribute("line").as_string());
 		option->id = op.attribute("id").as_int();
+		option->tag = op.attribute("tag").as_int();
 		npc->dialogOptions.push_back(*option);
 	}
 	return ret;

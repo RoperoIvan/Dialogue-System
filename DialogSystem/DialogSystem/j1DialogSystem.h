@@ -7,14 +7,16 @@
 #include "j1App.h"
 #include "p2Log.h"
 
-using namespace std;
+
+class GUI_Label;
+class GUI_Button;
 
 struct DialogNode;
 
 struct DialogueOption
 {
 public:
-	string text;
+	std::string text;
 	DialogNode* nextNode;
 	int id;
 	int returnCode;
@@ -23,8 +25,8 @@ public:
 struct DialogNode
 {
 public:
-	string text;
-	vector <DialogueOption> dialogOptions;
+	std::string text;
+	std::vector <DialogueOption> dialogOptions;
 	int id;
 };
 class DialogTree
@@ -35,15 +37,15 @@ public:
 
 
 public:
-	vector <DialogNode*> dialogNodes;
+	std::vector <DialogNode*> dialogNodes;
 	int treeid, karma;
 	bool CheckTags(int tag);
 };
 
-class j1Dialogue : public j1Module
+class j1DialogSystem : public j1Module
 {
 public:
-	j1Dialogue();
+	j1DialogSystem();
 
 	bool Awake(pugi::xml_node&);
 	bool Start();
@@ -58,12 +60,12 @@ public:
 	bool LoadNodesDetails(pugi::xml_node& text_node, DialogNode* npc);
 	
 private:
-	vector <DialogTree*> dialogTrees;
-
+	std::vector <DialogTree*> dialogTrees;
+	std::list <GUI_Button*> options_buttons;
 public:
 	pugi::xml_document	tree_file;
 	pugi::xml_node		tree;
-
+	
 };
 
 #endif

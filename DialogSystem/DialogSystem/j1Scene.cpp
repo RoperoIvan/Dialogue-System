@@ -37,7 +37,7 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	d;
+	
 
 	return true;
 }
@@ -53,18 +53,18 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
+	LOG("HOLA");
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+		App->dialog->performdialogue(0);	
 
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		App->render->camera.y += 300 * dt;
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+		App->dialog->performdialogue(1);
 
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		App->render->camera.y -= 300 * dt;
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+		App->dialog->performdialogue(2);
 
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		App->render->camera.x += 300 * dt;
 
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->render->camera.x -= 300 * dt;
+	
 	return true;
 }
 

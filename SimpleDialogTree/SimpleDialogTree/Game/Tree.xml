@@ -2,13 +2,13 @@
 
 
 <dialogue>
-  <dialogtree treeid="0" karma="0">
+  <dialogtree treeid="0">
     <node line="PLAYERNAME que tal estas PLAYERNAME" id="0">
       <option  line="Supp Noob" id="1"/>
       <option line="Hello strange voice" id="2"/>
     </node>
     <node  line="PLAYERNAME, I don't want to talk to you" id="1">
-      <option  line="Aww" id="5"/>
+      <option  line="Aww" id="5" tag="4"/>
     </node>
     <node  line="I have a quest for you" id="2">
       <option  line="K bye" id="5"/>
@@ -25,7 +25,7 @@
     </node>
   </dialogtree>
 
-  <dialogtree treeid="1" karma ="0">
+  <dialogtree treeid="1">
     <node line="Hello brave archer" id="0">
       <option  line="Supp Noob" id="1"/>
       <option line="Hello strange voice" id="2"/>
@@ -47,8 +47,8 @@
       <option  line="No way" id="5"/>
     </node>
   </dialogtree>
-    <dialogtree treeid="2" karma="0">
-    <node line="Hello $name " id="0">
+    <dialogtree treeid="2">
+    <node line="Hello  PLAYERNAME" id="0">
       <option  line="Supp Noob" id="1"/>
       <option line="Hello strange voice" id="2"/>
     </node>

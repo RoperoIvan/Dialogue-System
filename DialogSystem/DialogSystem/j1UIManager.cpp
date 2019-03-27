@@ -36,7 +36,7 @@ bool j1UIManager::PreUpdate()
 {
 
 	bool ret = true;
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN) {
 		debug_ui = !debug_ui;
 	}
 

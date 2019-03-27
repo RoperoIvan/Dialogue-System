@@ -31,6 +31,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	scene = new j1Scene();
 	ui_manager = new j1UIManager();
 	fonts = new j1Fonts();
+	dialog = new j1DialogSystem();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -41,11 +42,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene);
 	AddModule(fonts);
 	AddModule(ui_manager);
-
+	AddModule(dialog);
 	// render last to swap buffer
 	AddModule(render);
-
-	scene->active = false;
 
 
 	PERF_PEEK(ptimer);
@@ -194,7 +193,7 @@ void j1App::PrepareUpdate()
 
 	frame_time.Start();
 	ptimer.Start();
-	LOG("dt is: %.6f", dt);
+	/*LOG("dt is: %.6f", dt);*/
 }
 
 // ---------------------------------------------
@@ -231,7 +230,7 @@ void j1App::FinishUpdate()
 		float delaytimestart = time.ReadMs();
 		SDL_Delay(framerate_cap - last_frame_ms);
 		float delaytimefinish = time.ReadMs();
-		LOG("We waited for %i milliseconds and got back in %.6f", framerate_cap - last_frame_ms, delaytimefinish - delaytimestart);
+		/*LOG("We waited for %i milliseconds and got back in %.6f", framerate_cap - last_frame_ms, delaytimefinish - delaytimestart);*/
 	}
 }
 

@@ -45,7 +45,7 @@ public:
 
 
 private:
-	j1DialogSystem* d;
+	j1DialogSystem* dialogue;
 };
 
 #endif // __j1SCENE_H__
