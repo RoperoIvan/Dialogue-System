@@ -19,7 +19,7 @@ public:
 	std::string text;
 	DialogNode* nextNode;
 	int id;
-	int returnCode;
+	int karma;
 };
 
 struct DialogNode
@@ -59,6 +59,7 @@ public:
 	bool LoadNodesDetails(pugi::xml_node& text_node, DialogNode* npc);
 	void BlitDialog();
 	bool CompareKarma();
+	void CheckForKarma(DialogNode* karmaNode);
 private:
 	std::vector <DialogTree*> dialogTrees;
 	std::list <GUI_Button*> options_buttons;

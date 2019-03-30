@@ -39,21 +39,17 @@ bool j1DialogSystem::Update(float dt)
 	bool ret = true;
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-	{
 		treeid = 0;
-	}
+
 
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-	{
 		treeid = 1;
-	}
+
 
 
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
-	{
 		treeid = 2;
-	}
 
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
@@ -114,8 +110,9 @@ void j1DialogSystem::PerformDialogue()
 	if (dialogTrees.empty())
 		LOG("TreeEmpty");
 
-	if (CompareKarma())
+	if (CompareKarma()) //Check if the player said something bad to this npc
 	{
+		
 		//Find the next node 
 		if (input > 0 || input < currentNode->dialogOptions.size()) //Only if the input is valid
 		{
@@ -123,7 +120,8 @@ void j1DialogSystem::PerformDialogue()
 			{
 				if (currentNode->dialogOptions[input].id == dialogTrees[treeid]->dialogNodes[j]->id) //If the option id is the same as one of the nodes ids in the tree
 				{
-					currentNode = dialogTrees[treeid]->dialogNodes[j]; // We will assign our node pointer to the next node in the tree
+					CheckForKarma(currentNode);
+					currentNode = dialogTrees[treeid]->dialogNodes[j]; // We will assign our node pointer to the next node in the tree				
 					break;
 				}
 			}
@@ -149,6 +147,7 @@ void j1DialogSystem::PerformDialogue()
 	}
 
 	BlitDialog();
+	
 }
 
 bool j1DialogSystem::LoadDialogue(const char* file)
@@ -202,6 +201,7 @@ bool j1DialogSystem::LoadNodesDetails(pugi::xml_node& text_node, DialogNode* npc
 		DialogueOption* option = new DialogueOption;
 		option->text.assign(op.attribute("line").as_string());
 		option->id = op.attribute("id").as_int();
+		option->karma = op.attribute("karma").as_int();
 		npc->dialogOptions.push_back(*option);
 	}
 	return ret;
@@ -223,7 +223,11 @@ bool j1DialogSystem::CompareKarma()
 
 	if (dialogTrees[treeid]->karma < 0)
 		ret = false;
-	else
-		ret = true;
+
 	return ret;
+}
+
+void j1DialogSystem::CheckForKarma(DialogNode* karmaNode)
+{
+	dialogTrees[treeid]->karma += karmaNode->dialogOptions[input].karma;
 }
