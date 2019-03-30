@@ -28,7 +28,11 @@ This type of dialogue is the typical interaction between the player and an NPC, 
 
 ## Branching Dialog
 
-In this type of dialog the player has more control about what he/she wants to say. The player can access different paths that form end up forming a dialogue tree by which player navigates, where the path he travels will depend on the decisions made by the player. Normally, the decisions that the player makes during the dialogue will not only give information to the player, but may also end up influencing the NPC, such as making him angry due to an option chosen by the player. Or the NPC can offer you a mission after having gained confidence with the player. The possibilities with this dialog system are quite broad, so it ends up being a very versatile and useful system. It is also easier to control what the player can do or say if the options he has to interact are already pre-written. For this reason it is one of the most used, if not the most widely used in the industry.
+In this type of dialog the player has more control about what he/she wants to say. The player can access different paths that form end up forming a dialogue tree by which player navigates, where the path he travels will depend on the decisions made by the player.
+
+<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/dt_sample.png?raw=true " height="433" width="380" />
+
+Normally, the decisions that the player makes during the dialogue will not only give information to the player, but may also end up influencing the NPC, such as making him angry due to an option chosen by the player. Or the NPC can offer you a mission after having gained confidence with the player. The possibilities with this dialog system are quite broad, so it ends up being a very versatile and useful system. It is also easier to control what the player can do or say if the options he has to interact are already pre-written. For this reason it is one of the most used, if not the most widely used in the industry.
 
 <img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/ConsideratePaleDromaeosaur.gif?raw=true"/>
 
