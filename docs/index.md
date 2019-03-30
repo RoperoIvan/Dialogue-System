@@ -46,7 +46,7 @@ Before ELIZA was mentioned as the first RPG, it would also have in this case the
 
 In this type of dialog the player writes directly what he wants to say to the NPC. Through a database the syntactic composition of the phrase formed by the player is analyzed, the game interprets the phrase and forms a response for the NPC.
 
-<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/1-s2.0-S2468232216301081-gr2.jpg"/>
+<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/1-s2.0-S2468232216301081-gr2.jpg?raw=true"/>
 
 
 # Links to documentation
