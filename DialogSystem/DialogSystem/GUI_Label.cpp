@@ -34,10 +34,10 @@ void GUI_Label::InnerDraw()
 
 void GUI_Label::SetText(const char * txt)
 {
-	text.assign(txt);
 	App->tex->UnLoad(texture);
+	//text.assign(txt);
 	texture = App->fonts->Print(text.data(), color, font);
-	App->fonts->CalcSize(text.data(), section.w, section.h, font);
+	/*App->fonts->CalcSize(text.data(), section.w, section.h, font);*/
 }
 
 void GUI_Label::SetColor(Color c)

@@ -27,7 +27,7 @@ struct DialogNode
 public:
 	std::string text;
 	std::vector <DialogueOption> dialogOptions;
-	int id;
+	int id, karma;
 };
 class DialogTree
 {
@@ -39,7 +39,6 @@ public:
 public:
 	std::vector <DialogNode*> dialogNodes;
 	int treeid, karma;
-	bool CheckTags(int tag);
 };
 
 class j1DialogSystem : public j1Module
@@ -54,19 +53,19 @@ public:
 	bool PostUpdate();
 	bool CleanUp();
 
-	void performdialogue(int treeid);
+	void PerformDialogue();
 	bool LoadDialogue(const char*);
 	bool LoadTreeData(pugi::xml_node& trees, DialogTree* oak);
 	bool LoadNodesDetails(pugi::xml_node& text_node, DialogNode* npc);
-	void BlitDialog(DialogNode* nodes);
+	void BlitDialog();
+	bool CompareKarma();
 private:
 	std::vector <DialogTree*> dialogTrees;
 	std::list <GUI_Button*> options_buttons;
 	GUI_Label* npctext;
 	GUI_Label* playertext;
 	DialogNode* currentNode;
-	int input = 7;
-	bool blit = false;
+	int input = 7, treeid = 0;
 public:
 	pugi::xml_document	tree_file;
 	pugi::xml_node		tree;
