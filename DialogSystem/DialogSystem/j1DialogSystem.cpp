@@ -39,17 +39,36 @@ bool j1DialogSystem::Update(float dt)
 	bool ret = true;
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	{
 		treeid = 0;
+		App->ui_manager->DeleteAllUIElements();
+		currentNode = dialogTrees[treeid]->dialogNodes[0];
+		input = 7;
+		PerformDialogue();
+	}
+		
 
 
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	{
 		treeid = 1;
+		App->ui_manager->DeleteAllUIElements();
+		currentNode = dialogTrees[treeid]->dialogNodes[0];
+		input = 7;
+		PerformDialogue();
+	}
 
 
 
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+	{
 		treeid = 2;
+		App->ui_manager->DeleteAllUIElements();
+		currentNode = dialogTrees[treeid]->dialogNodes[0];
+		input = 7;
+		PerformDialogue();
+	}
 
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
@@ -120,8 +139,8 @@ void j1DialogSystem::PerformDialogue()
 			{
 				if (currentNode->dialogOptions[input].id == dialogTrees[treeid]->dialogNodes[j]->id) //If the option id is the same as one of the nodes ids in the tree
 				{
-					CheckForKarma(currentNode);
-					currentNode = dialogTrees[treeid]->dialogNodes[j]; // We will assign our node pointer to the next node in the tree				
+					CheckForKarma(currentNode); // We update the player karma based in what option he/she choosed and
+					currentNode = dialogTrees[treeid]->dialogNodes[j]; // we assign our node pointer to the next node in the tree				
 					break;
 				}
 			}
@@ -148,6 +167,31 @@ void j1DialogSystem::PerformDialogue()
 
 	BlitDialog();
 	
+}
+
+void j1DialogSystem::BlitDialog()
+{
+	npctext = App->ui_manager->AddLabel(180, 200, currentNode->text.c_str(), 200, App->ui_manager->screen, WHITE, "fonts/Munro.ttf", this);
+	int space = 220;
+	/*npctext->SetText(nodes->text.c_str());*/
+	for (int i = 0; i < currentNode->dialogOptions.size(); i++)
+		playertext = App->ui_manager->AddLabel(180, space += 30, currentNode->dialogOptions[i].text.c_str(), 100, App->ui_manager->screen, GREEN, "fonts/Munro.ttf", this);
+	/*	playertext->SetText(nodes->dialogOptions[i].text.c_str());*/
+}
+
+bool j1DialogSystem::CompareKarma()
+{
+	bool ret = true;
+
+	if (dialogTrees[treeid]->karma < 0)
+		ret = false;
+
+	return ret;
+}
+
+void j1DialogSystem::CheckForKarma(DialogNode* karmaNode)
+{
+	dialogTrees[treeid]->karma += karmaNode->dialogOptions[input].karma;
 }
 
 bool j1DialogSystem::LoadDialogue(const char* file)
@@ -205,29 +249,4 @@ bool j1DialogSystem::LoadNodesDetails(pugi::xml_node& text_node, DialogNode* npc
 		npc->dialogOptions.push_back(*option);
 	}
 	return ret;
-}
-
-void j1DialogSystem::BlitDialog()
-{
-	npctext = App->ui_manager->AddLabel(180, 200, currentNode->text.c_str(), 200, App->ui_manager->screen, WHITE, "fonts/Munro.ttf", this);
-	int space = 220;
-	/*npctext->SetText(nodes->text.c_str());*/
-	for (int i = 0; i < currentNode->dialogOptions.size(); i++)
-		playertext = App->ui_manager->AddLabel(180, space += 30, currentNode->dialogOptions[i].text.c_str(), 100, App->ui_manager->screen, GREEN, "fonts/Munro.ttf", this);
-	/*	playertext->SetText(nodes->dialogOptions[i].text.c_str());*/
-}
-
-bool j1DialogSystem::CompareKarma()
-{
-	bool ret = true;
-
-	if (dialogTrees[treeid]->karma < 0)
-		ret = false;
-
-	return ret;
-}
-
-void j1DialogSystem::CheckForKarma(DialogNode* karmaNode)
-{
-	dialogTrees[treeid]->karma += karmaNode->dialogOptions[input].karma;
 }
