@@ -46,12 +46,34 @@ This system could be considered a variant of the previous one since the only dif
 
 Before ELIZA was mentioned as the first RPG, it would also have in this case the achievement of being also the first programs they use in their input text parser. The complexity of this system is so large and complicated that it is rarely seen in video games. One of the few examples is the game Façade. A negative point that has this type of esque systems often misinterpret what the player has written, which usually unravels in that the NPC does not know how to react or have totally different reactions to what the player expected from the NPC.
 
-<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/ConsideratePaleDromaeosaur.gif?raw=true"/>
+<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/BraveGargantuanEskimodog-small.gif?raw=true"/>
 
 In this type of dialog the player writes directly what he wants to say to the NPC. Through a database the syntactic composition of the phrase formed by the player is analyzed, the game interprets the phrase and forms a response for the NPC.
 
 <img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/1-s2.0-S2468232216301081-gr2.jpg?raw=true"/>
 
+## What we will use
+
+As mentioned previously, the most used system is the Branching dialog. It is also the one that will be most useful in our project because if we want we can choose between non branching and branching with very little effort. The complexity of the code is not high either, so implementing it in our project will be simple and we will not have any problem.
+
+<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/Untitled%20Diagram.jpg?raw=true"/>
+
+We will use a tree as structure of a dialogue with, for example, an NPC. Each tree has nodes, that are each of the different possible interactions between the player and the NPC. Finally within these nodes are the options, that will be as the name says the possibilities of choice that the player will have.
+
+## Code Structure
+
+<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/Tree.png?raw=true"/>
+
+<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/node.png?raw=true"/>
+
+<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/option.png?raw=true"/>
+
+<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/currentNode.png?raw=true"/>
+
+## Ways to define de data
+
+
+## TODO's and solutions
 
 # Links to documentation
 
