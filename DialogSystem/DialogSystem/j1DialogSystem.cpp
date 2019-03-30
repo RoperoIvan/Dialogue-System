@@ -94,6 +94,7 @@ bool j1DialogSystem::Update(float dt)
 	{
 		App->ui_manager->DeleteAllUIElements();
 		currentNode = dialogTrees[treeid]->dialogNodes[0];
+		dialogTrees[treeid]->karma = 0;
 		input = 7;
 		PerformDialogue();
 	}
@@ -131,13 +132,12 @@ void j1DialogSystem::PerformDialogue()
 
 	if (CompareKarma()) //Check if the player said something bad to this npc
 	{
-		
 		//Find the next node 
-		if (input > 0 || input < currentNode->dialogOptions.size()) //Only if the input is valid
+		if (input > 0 && input < currentNode->dialogOptions.size()) //Only if the input is valid
 		{
 			for (int j = 0; j < dialogTrees[treeid]->dialogNodes.size(); j++)
 			{
-				if (currentNode->dialogOptions[input].id == dialogTrees[treeid]->dialogNodes[j]->id) //If the option id is the same as one of the nodes ids in the tree
+				if (currentNode->dialogOptions[input].nextnode == dialogTrees[treeid]->dialogNodes[j]->id) //If the option id is the same as one of the nodes ids in the tree
 				{
 					CheckForKarma(currentNode); // We update the player karma based in what option he/she choosed and
 					currentNode = dialogTrees[treeid]->dialogNodes[j]; // we assign our node pointer to the next node in the tree				
@@ -150,23 +150,21 @@ void j1DialogSystem::PerformDialogue()
 	{
 		for (int i = 0; i < dialogTrees[treeid]->dialogNodes.size(); i++)
 		{
-			if (dialogTrees[treeid]->karma == dialogTrees[treeid]->dialogNodes[i]->karma)
+			// We search the mood of the bad response -1 = bad response 0 = neutral 1 = good response
+			if (dialogTrees[treeid]->karma == dialogTrees[treeid]->dialogNodes[i]->karma) 
 			{
-				currentNode = dialogTrees[treeid]->dialogNodes[i];
+				currentNode = dialogTrees[treeid]->dialogNodes[i]; //This node is the bad response from the npc
 			}
 		}
 	}	
 	//Put the player's name in the lines of the npc dialog
-	std::string tag = "PLAYERNAME";
 	for (int i = 0; i < currentNode->text.size(); i++)
 	{
-		size_t found = currentNode->text.find(tag);
+		size_t found = currentNode->text.find("PLAYERNAME");
 		if (found != std::string::npos)
-			currentNode->text.replace(currentNode->text.find(tag), 10, "Enrique");
+			currentNode->text.replace(currentNode->text.find("PLAYERNAME"), 10, "Enrique");
 	}
-
 	BlitDialog();
-	
 }
 
 void j1DialogSystem::BlitDialog()
@@ -191,6 +189,10 @@ bool j1DialogSystem::CompareKarma()
 
 void j1DialogSystem::CheckForKarma(DialogNode* karmaNode)
 {
+	//int newkarma = dialogTrees[treeid]->karma += karmaNode->dialogOptions[input].karma;
+	//tree = tree_file.child("dialogtree");
+	//tree.append_attribute("karma") = newkarma;
+
 	dialogTrees[treeid]->karma += karmaNode->dialogOptions[input].karma;
 }
 
@@ -244,7 +246,7 @@ bool j1DialogSystem::LoadNodesDetails(pugi::xml_node& text_node, DialogNode* npc
 	{
 		DialogueOption* option = new DialogueOption;
 		option->text.assign(op.attribute("line").as_string());
-		option->id = op.attribute("id").as_int();
+		option->nextnode = op.attribute("nextnode").as_int();
 		option->karma = op.attribute("karma").as_int();
 		npc->dialogOptions.push_back(*option);
 	}

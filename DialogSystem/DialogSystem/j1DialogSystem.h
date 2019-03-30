@@ -17,8 +17,7 @@ struct DialogueOption
 {
 public:
 	std::string text;
-	DialogNode* nextNode;
-	int id;
+	int nextnode;
 	int karma;
 };
 
