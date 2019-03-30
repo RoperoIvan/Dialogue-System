@@ -23,12 +23,31 @@ But the dialogues not only depend in how good the lines between interactions are
 ## Non-branching Dialog
 
 This type of dialogue is the typical interaction between the player and an NPC, where the player can not choose what to say, and is simply limited to normally pressing a button for the dialogue to continue, in this case the game itself will be chosen by the player what his character will say. The conversation may change if the player talks to the NPC again but has no control over what his character says.
-<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/giphy%20(1).gif?raw=true"/>
 
+<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/giphy%20(1).gif?raw=true"/>
 
 ## Branching Dialog
 
-In this type of dialog the player has more control about what he/she wants to say. 
+In this type of dialog the player has more control about what he/she wants to say. The player can access different paths that form end up forming a dialogue tree by which player navigates, where the path he travels will depend on the decisions made by the player. Normally, the decisions that the player makes during the dialogue will not only give information to the player, but may also end up influencing the NPC, such as making him angry due to an option chosen by the player. Or the NPC can offer you a mission after having gained confidence with the player. The possibilities with this dialog system are quite broad, so it ends up being a very versatile and useful system. It is also easier to control what the player can do or say if the options he has to interact are already pre-written. For this reason it is one of the most used, if not the most widely used in the industry.
+
+<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/ConsideratePaleDromaeosaur.gif?raw=true"/>
+
+## Hub Dialog
+
+This system could be considered a variant of the previous one since the only difference between the two is that in a Hub system the player can go back to the options of dialogue at the beginning to be able to know each and every one of the possible answers of the NPC giving the possibility to the player to know all possible information. The level of freedom of decision is greater in this type of dialogue. One of its negative points is that it is not too immersive since having total control over the conversation is not too realistic. Many RPGs use this type of system, games mentioned above as Fallout or Elder Scrolls of the same company make use of the system.
+
+<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/Vxnmct.gif?raw=true"/>
+
+## Parser Driven Dialog
+
+Before ELIZA was mentioned as the first RPG, it would also have in this case the achievement of being also the first programs they use in their input text parser. The complexity of this system is so large and complicated that it is rarely seen in video games. One of the few examples is the game Façade. A negative point that has this type of esque systems often misinterpret what the player has written, which usually unravels in that the NPC does not know how to react or have totally different reactions to what the player expected from the NPC.
+
+<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/ConsideratePaleDromaeosaur.gif?raw=true"/>
+
+In this type of dialog the player writes directly what he wants to say to the NPC. Through a database the syntactic composition of the phrase formed by the player is analyzed, the game interprets the phrase and forms a response for the NPC.
+
+<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/1-s2.0-S2468232216301081-gr2.jpg"/>
+
 
 # Links to documentation
 
