@@ -133,7 +133,7 @@ void j1DialogSystem::PerformDialogue()
 	if (CompareKarma()) //Check if the player said something bad to this npc
 	{
 		//Find the next node 
-		if (input > 0 && input < currentNode->dialogOptions.size()) //Only if the input is valid
+		if (input >= 0 && input < currentNode->dialogOptions.size()) //Only if the input is valid
 		{
 			for (int j = 0; j < dialogTrees[treeid]->dialogNodes.size(); j++)
 			{
@@ -169,11 +169,11 @@ void j1DialogSystem::PerformDialogue()
 
 void j1DialogSystem::BlitDialog()
 {
-	npctext = App->ui_manager->AddLabel(180, 200, currentNode->text.c_str(), 200, App->ui_manager->screen, WHITE, "fonts/Munro.ttf", this);
+	npctext = App->ui_manager->AddLabel(180, 200, currentNode->text.c_str(), 50, App->ui_manager->screen, WHITE, "fonts/Final_Fantasy_font.ttf", this);
 	int space = 220;
 	/*npctext->SetText(nodes->text.c_str());*/
 	for (int i = 0; i < currentNode->dialogOptions.size(); i++)
-		playertext = App->ui_manager->AddLabel(180, space += 30, currentNode->dialogOptions[i].text.c_str(), 100, App->ui_manager->screen, GREEN, "fonts/Munro.ttf", this);
+		playertext = App->ui_manager->AddLabel(180, space += 30, currentNode->dialogOptions[i].text.c_str(), 45, App->ui_manager->screen, GREEN, "fonts/Final_Fantasy_font.ttf", this);
 	/*	playertext->SetText(nodes->dialogOptions[i].text.c_str());*/
 }
 
