@@ -54,14 +54,19 @@ public:
 	bool PostUpdate();
 	bool CleanUp();
 
-	int performdialogue(int treeid);
+	void performdialogue(int treeid);
 	bool LoadDialogue(const char*);
 	bool LoadTreeData(pugi::xml_node& trees, DialogTree* oak);
 	bool LoadNodesDetails(pugi::xml_node& text_node, DialogNode* npc);
-	
+	void BlitDialog(DialogNode* nodes);
 private:
 	std::vector <DialogTree*> dialogTrees;
 	std::list <GUI_Button*> options_buttons;
+	GUI_Label* npctext;
+	GUI_Label* playertext;
+	DialogNode* currentNode;
+	int input = 7;
+	bool blit = false;
 public:
 	pugi::xml_document	tree_file;
 	pugi::xml_node		tree;

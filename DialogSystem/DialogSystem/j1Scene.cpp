@@ -53,18 +53,6 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	LOG("HOLA");
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-		App->dialog->performdialogue(0);	
-
-	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-		App->dialog->performdialogue(1);
-
-	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
-		App->dialog->performdialogue(2);
-
-
-	
 	return true;
 }
 

@@ -2,6 +2,7 @@
 #include "j1UIManager.h"
 #include "j1Fonts.h"
 #include "j1DialogSystem.h"
+#include "j1Input.h"
 #include "GUI_Label.h"
 #include "GUI_Button.h"
 
@@ -20,6 +21,8 @@ bool j1DialogSystem::Start()
 {
 	bool ret = true;
 	LoadDialogue("Tree.xml");
+	currentNode = dialogTrees[0]->dialogNodes[0];
+	performdialogue(0);	
 	return ret;
 }
 
@@ -33,13 +36,54 @@ bool j1DialogSystem::PreUpdate()
 bool j1DialogSystem::Update(float dt)
 {
 	bool ret = true;
+
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	{
+		App->ui_manager->DeleteAllUIElements();
+		blit = true;
+	}
+
+
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	{
+		App->ui_manager->DeleteAllUIElements();
+		blit = true;
+	}
+
+
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+	{
+		App->ui_manager->DeleteAllUIElements();
+		blit = true;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	{
+		App->ui_manager->DeleteAllUIElements();
+		input = 0;
+		performdialogue(0);
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+	{
+		App->ui_manager->DeleteAllUIElements();
+		input = 1;
+		performdialogue(0);
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+	{
+		App->ui_manager->DeleteAllUIElements();
+		input = 2;
+		performdialogue(0);
+	}
 	return ret;
 }
 
 bool j1DialogSystem::PostUpdate()
 {
 	bool ret = true;
-
+	
 	return ret;
 }
 
@@ -59,21 +103,13 @@ bool j1DialogSystem::CleanUp()
 	return ret;
 }
 
-int j1DialogSystem::performdialogue(int treeid)
+void j1DialogSystem::performdialogue(int treeid)
 {
 	if (dialogTrees.empty())
-		return -1;
+		LOG("TreeEmpty");
 
-	else
-	{
-		LOG("Is not empty!");
-	}
-
-	DialogNode* currentNode = dialogTrees[treeid]->dialogNodes[0];
-	
 	std::string name = "PLAYERNAME";
 	
-
 	/*Put the player's name in a the lines of dialog*/
 	for (int i = 0; i < currentNode->text.size(); i++)
 	{
@@ -82,58 +118,25 @@ int j1DialogSystem::performdialogue(int treeid)
 			currentNode->text.replace(currentNode->text.find(name), 10, "Enrique");
 	}
 	
-	App->ui_manager->AddLabel(180, 200, currentNode->text.c_str(), 200, App->ui_manager->screen, WHITE, "fonts/Munro.ttf", this);
-	int space = 220;
-	for (int i = 0; i < currentNode->dialogOptions.size(); i++)
+	
+	LOG("HOLA");
+	if (input < 0 || input > currentNode->dialogOptions.size())
 	{
-
-		GUI_Button* button = new GUI_Button();
-
-		button = App->ui_manager->AddButton(180, space += 30, { 0,0,20,20 }, { 0,0,20,20 }, { 0,0,20,20 }, this, App->ui_manager->screen, false, false, false);
-		App->ui_manager->AddLabel(0, 0, currentNode->dialogOptions[i].text.c_str(), 100, button, GREEN, "fonts/Munro.ttf", this);
-
-
-		options_buttons.push_back(button);
+		LOG("HOLA");
 	}
-	
-		//Check for tree tags
-		/*dialogTrees[treeid]->CheckTags(dialogTrees[treeid]->karma);*/
-
-
-		
-	
-		//cout << currentNode->text << "\n\n";
-		//for (int i = 0; i < currentNode->dialogOptions.size(); i++)
-		//	cout << i + 1 << ": " << currentNode->dialogOptions[i].text << endl;
-		//
-		//cout << endl;
-		//int input;
-		//cin >> input;
-		//input--;
-
-		//if (input < 0 || input >= currentNode->dialogOptions.size())
-		//	cout << "Invalid input \n\n";
-		//
-		//else
-		//{
-		//	//Check for end of conversation
-		//	if (currentNode->dialogOptions[input].id >= dialogTrees[treeid]->dialogNodes.size())
-		//		return currentNode->dialogOptions[input].returnCode;
-		//	
-		//	for (int j = 0; j < dialogTrees[treeid]->dialogNodes.size(); j++)
-		//	{
-		//		if (currentNode->dialogOptions[input].id == dialogTrees[treeid]->dialogNodes[j]->id)
-		//		{					
-		//			currentNode = dialogTrees[treeid]->dialogNodes[j];
-		//			break;
-		//		}
-		//	}
-		//}
-		//
-		//cout << endl;
-	
-	
-
+	else
+	{
+		for (int j = 0; j < dialogTrees[treeid]->dialogNodes.size(); j++)
+		{
+			if (currentNode->dialogOptions[input].id == dialogTrees[treeid]->dialogNodes[j]->id)
+			{
+				LOG("GOLA");
+				currentNode = dialogTrees[treeid]->dialogNodes[j];
+				break;
+			}
+		}
+	}
+	BlitDialog(currentNode);
 }
 
 bool j1DialogSystem::LoadDialogue(const char* file)
@@ -192,15 +195,12 @@ bool j1DialogSystem::LoadNodesDetails(pugi::xml_node& text_node, DialogNode* npc
 	return ret;
 }
 
-bool DialogTree::CheckTags(int tag)
+void j1DialogSystem::BlitDialog(DialogNode* nodes)
 {
-	bool ret = true;
-
-
-
-
-
-
-
-	return ret;
+	npctext = App->ui_manager->AddLabel(180, 200, nodes->text.c_str(), 200, App->ui_manager->screen, WHITE, "fonts/Munro.ttf", this);
+	int space = 220;
+	/*npctext->SetText(nodes->text.c_str());*/
+	for (int i = 0; i < nodes->dialogOptions.size(); i++)
+		playertext = App->ui_manager->AddLabel(180, space += 30, nodes->dialogOptions[i].text.c_str(), 100, App->ui_manager->screen, GREEN, "fonts/Munro.ttf", this);
+	/*	playertext->SetText(nodes->dialogOptions[i].text.c_str());*/
 }
