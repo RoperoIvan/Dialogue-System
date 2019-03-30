@@ -171,10 +171,9 @@ void j1DialogSystem::BlitDialog()
 {
 	npctext = App->ui_manager->AddLabel(180, 200, currentNode->text.c_str(), 50, App->ui_manager->screen, WHITE, "fonts/Final_Fantasy_font.ttf", this);
 	int space = 220;
-	/*npctext->SetText(nodes->text.c_str());*/
 	for (int i = 0; i < currentNode->dialogOptions.size(); i++)
 		playertext = App->ui_manager->AddLabel(180, space += 30, currentNode->dialogOptions[i].text.c_str(), 45, App->ui_manager->screen, GREEN, "fonts/Final_Fantasy_font.ttf", this);
-	/*	playertext->SetText(nodes->dialogOptions[i].text.c_str());*/
+
 }
 
 bool j1DialogSystem::CompareKarma()
