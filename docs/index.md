@@ -8,7 +8,7 @@
 
 [Link to the solution](https://github.com/RoperoIvan/Dialogue-System/releases/tag/Solution)
 
-[Link to the presentation]()
+[Link to the presentation](https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Dialog%20System.pptx)
 
 # Dialogue Systems importance
 
