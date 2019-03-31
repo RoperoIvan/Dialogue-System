@@ -30,7 +30,7 @@ public:
 	DialogNode() {};
 public:
 	std::string text;
-	std::vector <DialogOption> dialogOptions;
+	std::vector <DialogOption*> dialogOptions;
 	int id, karma;
 };
 class DialogTree
@@ -67,7 +67,7 @@ private:
 	std::vector <DialogTree*> dialogTrees;
 	std::list <GUI_Button*> options_buttons;
 	DialogNode* currentNode;
-	int input = 0, treeid = 0;
+	int input = 7, treeid = 0;
 public:
 	pugi::xml_document	tree_file;
 

@@ -130,33 +130,34 @@ void j1DialogSystem::PerformDialogue()
 	if (dialogTrees.empty())
 		LOG("TreeEmpty");
 
-	if (CompareKarma()) //Check if the player said something bad to this npc
+	if (CompareKarma() == true)
 	{
 		//Find the next node 
 		if (input >= 0 && input < currentNode->dialogOptions.size()) //Only if the input is valid
 		{
 			for (int j = 0; j < dialogTrees[treeid]->dialogNodes.size(); j++)
 			{
-				if (currentNode->dialogOptions[input].nextnode == dialogTrees[treeid]->dialogNodes[j]->id) //If the option id is the same as one of the nodes ids in the tree
+				if (currentNode->dialogOptions[input]->nextnode == dialogTrees[treeid]->dialogNodes[j]->id) //If the option id is the same as one of the nodes ids in the tree
 				{
-					CheckForKarma(currentNode); // We update the player karma based in what option he/she choosed and
+					CheckForKarma(currentNode);
 					currentNode = dialogTrees[treeid]->dialogNodes[j]; // we assign our node pointer to the next node in the tree				
 					break;
 				}
 			}
 		}
 	}
-	else
+	else if (CompareKarma() == false)
 	{
 		for (int i = 0; i < dialogTrees[treeid]->dialogNodes.size(); i++)
 		{
 			// We search the mood of the bad response -1 = bad response 0 = neutral 1 = good response
-			if (dialogTrees[treeid]->karma == dialogTrees[treeid]->dialogNodes[i]->karma) 
+			if (dialogTrees[treeid]->karma == dialogTrees[treeid]->dialogNodes[i]->karma)
 			{
 				currentNode = dialogTrees[treeid]->dialogNodes[i]; //This node is the bad response from the npc
 			}
 		}
-	}	
+	}
+
 	//Put the player's name in the lines of the npc dialog
 	for (int i = 0; i < currentNode->text.size(); i++)
 	{
@@ -172,7 +173,7 @@ void j1DialogSystem::BlitDialog()
 	App->ui_manager->AddLabel(180, 200, currentNode->text.c_str(), 50, App->ui_manager->screen, WHITE, "fonts/Final_Fantasy_font.ttf", this);
 	int space = 220;
 	for (int i = 0; i < currentNode->dialogOptions.size(); i++)
-		App->ui_manager->AddLabel(180, space += 30, currentNode->dialogOptions[i].text.c_str(), 45, App->ui_manager->screen, GREEN, "fonts/Final_Fantasy_font.ttf", this);
+		App->ui_manager->AddLabel(180, space += 30, currentNode->dialogOptions[i]->text.c_str(), 45, App->ui_manager->screen, GREEN, "fonts/Final_Fantasy_font.ttf", this);
 
 }
 
@@ -192,7 +193,7 @@ void j1DialogSystem::CheckForKarma(DialogNode* karmaNode)
 	//tree = tree_file.child("dialogtree");
 	//tree.append_attribute("karma") = newkarma;
 
-	dialogTrees[treeid]->karma += karmaNode->dialogOptions[input].karma;
+	dialogTrees[treeid]->karma += karmaNode->dialogOptions[input]->karma;
 }
 
 bool j1DialogSystem::LoadDialogue(const char* file)
@@ -247,7 +248,7 @@ bool j1DialogSystem::LoadNodesDetails(pugi::xml_node& text_node, DialogNode* npc
 		option->text.assign(op.attribute("line").as_string());
 		option->nextnode = op.attribute("nextnode").as_int();
 		option->karma = op.attribute("karma").as_int();
-		npc->dialogOptions.push_back(*option);
+		npc->dialogOptions.push_back(option);
 	}
 	return ret;
 }
