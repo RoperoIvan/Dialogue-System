@@ -62,12 +62,45 @@ We will use a tree as structure of a dialogue with, for example, an NPC. Each tr
 
 ## Ways to define de data
 
+You could really make a branching system dialog directly from the code, but putting each and every one of the lines of dialogue in different strings is expensive and hardcode the code is not a good habit of programming. That's why we will use XML as a container for all our lines of game dialogues. The choice in addition to XML is justified by easy use and little complexity when reading the file format. In this way both programmers and designers or artists can quickly access the dialogues to make possible changes of NPCs, add new conversations and in general make changes in the narrative of the game.
+
+The structure that we will follow to make our dialogue tree is the following:
+
 <img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/Webp.net-gifmaker%20(4).gif?raw=true"/>
 
+Our dialog XML will be able to contain multiple dialogue trees, these being each one of the interactions with the NPCs of our game. Within the trees, we will have different dialog nodes, making the role of the different lines of dialogue of the NPC and each of these nodes will contain the different options that the player can choose and that will take him to other nodes within the tree of dialogue.
 
-## Code Structure
+```
+ <dialogtree treeid="0" karma="0">
+    <node line="PLAYERNAME how are you PLAYERNAME" id="0">
+      <option  line="Supp Noob" nextnode="1" karma="-1"/>
+      <option line="Hello strange voice" nextnode="2"/>
+    </node>
+    <node  line="PLAYERNAME , I don't want to talk to you" id="1">
+      <option  line="Aww" nextnode="6"/>
+    </node>
+    <node  line="I have a quest for you" id="2">
+      <option  line="K bye" nextnode="6"/>
+      <option line="What is it" nextnode="4"/>
+      <option  line="Whats the pay" nextnode="3"/>
+    </node>
+    <node line="Yes, you will get gold you greedy swine" id="3">
+      <option line="Ok what is it" nextnode="4"/>
+      <option   line="That sucks im out" nextnode="6"/>
+    </node>
+    <node   line="Collect ten Dandillions" id="4">
+      <option line="Lets do it" nextnode="6"/>
+      <option  line="No way" nextnode="6"/>
+    </node>
+    <node line="I won't talk to you, you insulted me!" id="5" karma="-1">
+      <option line="Ok then..." nextnode="6"/>
+    </node>
+  </dialogtree>
+```
 
-### Classes
+# Code Structure
+
+## Classes
 
 The code is made up of 4 classes: 
 The first would be the options, which carry 2 int, the next node to which the conversation will go and a modifier of the state of the npc and 1 string that will be the line of dialogue that will form the option that the player will choose.
@@ -145,7 +178,7 @@ public:
 };
 ```
 
-### How it works
+## How it works
 
 First we will have to load the data from the XML, which will be our container of dialogs. With the three load functions of the dialog class you will first enter the first tree, inside the first tree will load its attributes and call the second function that is responsible for loading the nodes. In the same way that the other function will load attributes the attributes of the first node and activate the last function that will load the attributes of each one of the options of that node. Looping the 3 functions we will load the whole tree and we will have it ready.
 
@@ -155,7 +188,7 @@ The next thing would be to choose which is the conversation node that we want to
 
 We only need to paint the node on the screen with your options, with a couple of labels and looped the label of the options and everything would be ready to work.
 
-## TODO's and solutions
+# TODO's and solutions
 
 # Links to documentation
 
