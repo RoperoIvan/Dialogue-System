@@ -11,21 +11,26 @@
 class GUI_Label;
 class GUI_Button;
 
-struct DialogNode;
+class DialogNode;
 
-struct DialogueOption
+class DialogOption
 {
+public:
+	DialogOption() {};
+	~DialogOption() {};
 public:
 	std::string text;
 	int nextnode;
 	int karma;
 };
 
-struct DialogNode
+class DialogNode
 {
 public:
+	DialogNode() {};
+public:
 	std::string text;
-	std::vector <DialogueOption> dialogOptions;
+	std::vector <DialogOption> dialogOptions;
 	int id, karma;
 };
 class DialogTree
@@ -33,7 +38,6 @@ class DialogTree
 public:
 	DialogTree() {};
 	~DialogTree() {};
-
 
 public:
 	std::vector <DialogNode*> dialogNodes;
@@ -62,13 +66,11 @@ public:
 private:
 	std::vector <DialogTree*> dialogTrees;
 	std::list <GUI_Button*> options_buttons;
-	GUI_Label* npctext;
-	GUI_Label* playertext;
 	DialogNode* currentNode;
-	int input = 7, treeid = 0;
+	int input = 0, treeid = 0;
 public:
 	pugi::xml_document	tree_file;
-	pugi::xml_node		tree;
+
 	
 };
 

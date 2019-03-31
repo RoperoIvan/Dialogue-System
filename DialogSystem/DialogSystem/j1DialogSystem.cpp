@@ -169,10 +169,10 @@ void j1DialogSystem::PerformDialogue()
 
 void j1DialogSystem::BlitDialog()
 {
-	npctext = App->ui_manager->AddLabel(180, 200, currentNode->text.c_str(), 50, App->ui_manager->screen, WHITE, "fonts/Final_Fantasy_font.ttf", this);
+	App->ui_manager->AddLabel(180, 200, currentNode->text.c_str(), 50, App->ui_manager->screen, WHITE, "fonts/Final_Fantasy_font.ttf", this);
 	int space = 220;
 	for (int i = 0; i < currentNode->dialogOptions.size(); i++)
-		playertext = App->ui_manager->AddLabel(180, space += 30, currentNode->dialogOptions[i].text.c_str(), 45, App->ui_manager->screen, GREEN, "fonts/Final_Fantasy_font.ttf", this);
+		App->ui_manager->AddLabel(180, space += 30, currentNode->dialogOptions[i].text.c_str(), 45, App->ui_manager->screen, GREEN, "fonts/Final_Fantasy_font.ttf", this);
 
 }
 
@@ -243,7 +243,7 @@ bool j1DialogSystem::LoadNodesDetails(pugi::xml_node& text_node, DialogNode* npc
 	bool ret = true;
 	for (pugi::xml_node op = text_node.child("option"); op != NULL; op = op.next_sibling("option"))
 	{
-		DialogueOption* option = new DialogueOption;
+		DialogOption* option = new DialogOption;
 		option->text.assign(op.attribute("line").as_string());
 		option->nextnode = op.attribute("nextnode").as_int();
 		option->karma = op.attribute("karma").as_int();
