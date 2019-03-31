@@ -59,6 +59,12 @@ In this type of dialog the player writes directly what he wants to say to the NP
 
 <img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/1-s2.0-S2468232216301081-gr2.jpg?raw=true"/>
 
+## Other remarkable Dialog Systems
+
+This system doesn't use dialog to interact with the other NPCs. Instead the player can choose the action that he/she wants to do with his Sim and the other NPCs will react with symbols depending of the personality and mood of each of the Sims.
+
+<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/GiddyForcefulIberianmidwifetoad.gif?raw=true"/>
+
 ## Which we will use
 
 As mentioned previously, the most used system is the Branching dialog. It is also the one that will be most useful in our project because if we want we can choose between non branching and branching with very little effort. The complexity of the code is not high either, so implementing it in our project will be simple and we should not have any problem.
@@ -67,7 +73,7 @@ As mentioned previously, the most used system is the Branching dialog. It is als
 
 We will use a tree as structure of a dialogue with, for example, an NPC. Each tree has nodes, that are each of the different possible interactions between the player and the NPC. Finally within these nodes are the options, that will be as the name says the possibilities of choice that the player will have.
 
-## Ways to define de data
+# Ways to define de data
 
 You could really make a branching system dialog directly from the code, but putting each and every one of the lines of dialogue in different strings is expensive and hardcode the code is not a good habit of programming. That's why we will use XML as a container for all our lines of game dialogues. The choice in addition to XML is justified by easy use and little complexity when reading the file format. In this way both programmers and designers or artists can quickly access the dialogues to make possible changes of NPCs, add new conversations and in general make changes in the narrative of the game.
 
