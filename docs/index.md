@@ -1,8 +1,11 @@
 # Dialogue System
 
 [Link to repository](https://github.com/RoperoIvan/Dialogue-System)
+
 [Link to the exercises]()
+
 [Link to the solution]()
+
 [Link to the presentation]()
 
 # Dialogue Systems importance
