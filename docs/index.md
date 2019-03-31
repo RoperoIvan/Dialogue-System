@@ -1,5 +1,9 @@
 # Dialogue System
 
+[Link to repository](https://github.com/RoperoIvan/Dialogue-System)
+[Link to the exercises]()
+[Link to the solution]()
+[Link to the presentation]()
 
 # Dialogue Systems importance
 
@@ -441,6 +445,11 @@ if (CompareKarma() == true)
 
 # What we could improve
 
+- The input is very limited, you would have to implement some kind of method to choose the different options.
+
+- If you want to assign more diversity to the actions that can unleash the options, such as karma, you should implement a state machine that will handle all the possible variables according to their type. For example: That the npc you of some object, money, that you can only access certain options if you have a high enough level, etc ...
+
+- It could also be implemented to our system a function that will calculate the size of each node of dialogue and assign the UI of corresponding size.
 
 
 # Links to documentation
