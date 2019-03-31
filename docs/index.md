@@ -201,7 +201,14 @@ public:
 ## TODO 1: Load the data from the XML
 
 ### What do you have to do
+In this TODO you have to load all the XML information in the game. To do this and following the structure of the previous XML you will have to fill in the three loading functions of the code.
+- Create a new DialogTree
 
+- Load the variables that it has in the XML
+
+- Call the function that loads the nodes
+
+- Add the DialogTree to the DialogTrees vector
 
 
 ### What you should see
@@ -212,7 +219,15 @@ public:
 ## TODO 2: Change the PLAYERNAME tag to the player name in the dialog
 
 ### What do you have to do
+Now we want to replace the word that came out in the previous TODO (PLAYERNAME) by the name we want our character to have in the game. For this I have already left a loop that runs through the whole phrase that the NPC says in a node.
 
+- Create a new variable size_t (a variable capable of representing the size of any object), this variable will be equal to the value obtained from looking for the PLAYERNAME in the line of dialogue.
+
+- Put a condition that will only be fulfilled if you find the word PLAYERNAME.
+
+- Now substitute the word for the name we want to put our character.
+
+- Remember to use the find and replace functions to complete this TODO.
 
 ### What you should see
 
@@ -221,7 +236,7 @@ public:
 ## TODO 3:  Put your own dialog options 
 
 ### What do you have to do
-
+Now complete the first node with your own options. The TODO is in the Dialog.xml file.
 
 ### What you should see
 
@@ -230,7 +245,11 @@ public:
 ## TODO 4:  Search which will be the next node in the tree
 
 ### What do you have to do
+Now we have to find what the next node will be when the player chooses one of the options we created earlier.
 
+- Search among all the nodes and compare which node has the option taken with the nodes of the tree.
+
+- Finally assign that node to our currentNode.
 
 ### What you should see
 
@@ -240,17 +259,33 @@ public:
 ## TODO 5:  Write a bad option to say and a node with the NPCs's angry response
 
 ### What do you have to do
+The TODO is in the Dialog.xml file.
+Now write something bad to tell our NPC. You will also have to write the angry NPC response.
+Remember to tell him that karma has our conversation tree with this NPC.
+Assign a negative value to the bad option and put a negative value also on the angry response of our NPC.
 
+Karma values:
+0 neutral karma
+-1 bad karma
 
 ### What you should see
-
+This TODO you can't check if did it right but in the next TODO you will be able.
 
 ## TODO 6:  Check the karma of the player
 
 ### What do you have to do
+In this ALL we will have to check how is the state of karma in the tree of dialogue. And act according to the result. If it is negative, the NPC will not want to talk to us.
 
+For that we will use two methods: CompareKarma and CheckForKarma.
+
+- The first is responsible for looking if the Karma with the npc is neutral or negative.
+
+- The second happens that the value of karma has the option chosen by the player and will update the karma value of the tree.
+
+- If CompareKarma is not fulfilled we must assign our currentNode pointer to the node that has a negative karma. That way the NPC will not let us talk with him unless we reset the dialogue with R.
 
 ### What you should see
+If we choose the option with bad karma if we talk again with the NPC giving the F1 key, the NPC will not want to talk to us unless we restart the conversation with the R key.
 
 <img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/Webp.net-gifmaker%20(6).gif?raw=true"/>
 
