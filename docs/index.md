@@ -52,9 +52,9 @@ In this type of dialog the player writes directly what he wants to say to the NP
 
 <img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/1-s2.0-S2468232216301081-gr2.jpg?raw=true"/>
 
-## What we will use
+## Which we will use
 
-As mentioned previously, the most used system is the Branching dialog. It is also the one that will be most useful in our project because if we want we can choose between non branching and branching with very little effort. The complexity of the code is not high either, so implementing it in our project will be simple and we will not have any problem.
+As mentioned previously, the most used system is the Branching dialog. It is also the one that will be most useful in our project because if we want we can choose between non branching and branching with very little effort. The complexity of the code is not high either, so implementing it in our project will be simple and we should not have any problem.
 
 <img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/Untitled%20Diagram.jpg?raw=true"/>
 
@@ -62,13 +62,81 @@ We will use a tree as structure of a dialogue with, for example, an NPC. Each tr
 
 ## Code Structure
 
-<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/Tree.png?raw=true"/>
+The code is made up of 4 classes: 
+The first would be the options, which carry 2 int, the next node to which the conversation will go and a modifier of the state of the npc and 1 string that will be the line of dialogue that will form the option that the player will choose.
+```class DialogOption
+{
+public:
+	DialogOption() {};
+	~DialogOption() {};
+public:
+	std::string text;
+	int nextnode;
+	int karma;
+};
+```
+The next class is the nodes that you will have as well as the options, 2 int, your node id and the karma of that NPC dialog. And finally the string that would be the line of dialogue of the NPC.
+```
+class DialogNode
+{
+public:
+	DialogNode() {};
+public:
+	std::string text;
+	std::vector <DialogOption> dialogOptions;
+	int id, karma;
+};
+```
+The third class is the trees that in this case will only have 2 int, their tree id so that we can have different dialog trees and the other int that will work as a karma comparator between the player and the NPC.
+```
+class DialogTree
+{
+public:
+	DialogTree() {};
+	~DialogTree() {};
 
-<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/node.png?raw=true"/>
+public:
+	std::vector <DialogNode*> dialogNodes;
+	int treeid, karma;
+};
+```
+And finally the dialog class that will be the one that manages the whole system and that mainly will do three important functions. Load the tree data, find the correct node and paint the dialog.
+```
+class j1DialogSystem : public j1Module
+{
+public:
+	j1DialogSystem();
 
-<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/option.png?raw=true"/>
+	bool Awake(pugi::xml_node&);
+	bool Start();
+	bool PreUpdate();
+	bool Update(float dt);
+	bool PostUpdate();
+	bool CleanUp();
 
-<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/currentNode.png?raw=true"/>
+	void PerformDialogue();
+	bool LoadDialogue(const char*);
+	bool LoadTreeData(pugi::xml_node& trees, DialogTree* oak);
+	bool LoadNodesDetails(pugi::xml_node& text_node, DialogNode* npc);
+	void BlitDialog();
+	bool CompareKarma();
+	void CheckForKarma(DialogNode* karmaNode);
+private:
+	std::vector <DialogTree*> dialogTrees;
+	std::list <GUI_Button*> options_buttons;
+	DialogNode* currentNode;
+	int input = 0, treeid = 0;
+public:
+	pugi::xml_document	tree_file;
+};
+```
+<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/Tree.png?raw=true"  height="100" width="100"/>
+
+<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/node.png?raw=true"  height="100" width="100"/>
+
+<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/option.png?raw=true"  height="100" width="100"/>
+
+<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/currentNode.png?raw=true"  height="84" width="168"/>
 
 ## Ways to define de data
 
