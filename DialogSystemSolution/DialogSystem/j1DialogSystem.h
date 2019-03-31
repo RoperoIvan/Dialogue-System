@@ -7,12 +7,6 @@
 #include "j1App.h"
 #include "p2Log.h"
 
-
-class GUI_Label;
-class GUI_Button;
-
-class DialogNode;
-
 class DialogOption
 {
 public:
@@ -28,6 +22,7 @@ class DialogNode
 {
 public:
 	DialogNode() {};
+	~DialogNode() {};
 public:
 	std::string text;
 	std::vector <DialogOption*> dialogOptions;
@@ -48,15 +43,12 @@ class j1DialogSystem : public j1Module
 {
 public:
 	j1DialogSystem();
-
-	bool Awake(pugi::xml_node&);
+	~j1DialogSystem();
 	bool Start();
-	bool PreUpdate();
 	bool Update(float dt);
-	bool PostUpdate();
 	bool CleanUp();
 
-	void PerformDialogue();
+	void PerformDialogue(int tr_id);
 	bool LoadDialogue(const char*);
 	bool LoadTreeData(pugi::xml_node& trees, DialogTree* oak);
 	bool LoadNodesDetails(pugi::xml_node& text_node, DialogNode* npc);
@@ -65,13 +57,10 @@ public:
 	void CheckForKarma(DialogNode* karmaNode);
 private:
 	std::vector <DialogTree*> dialogTrees;
-	std::list <GUI_Button*> options_buttons;
 	DialogNode* currentNode;
-	int input = 7, treeid = 0;
-public:
-	pugi::xml_document	tree_file;
-
-	
+	int input = 7;
+	int treeid = 0;
+	pugi::xml_document	tree_file;	
 };
 
 #endif

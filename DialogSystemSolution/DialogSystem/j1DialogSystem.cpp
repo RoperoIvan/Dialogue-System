@@ -9,27 +9,16 @@
 j1DialogSystem::j1DialogSystem()
 {
 }
-
-bool j1DialogSystem::Awake(pugi::xml_node& node)
+j1DialogSystem::~j1DialogSystem()
 {
-	bool ret = true;
-
-	return ret;
 }
 
 bool j1DialogSystem::Start()
 {
 	bool ret = true;
 	LoadDialogue("Dialog.xml");
-	currentNode = dialogTrees[0]->dialogNodes[0];
-	PerformDialogue();
-
-	return ret;
-}
-
-bool j1DialogSystem::PreUpdate()
-{
-	bool ret = true;
+	currentNode = dialogTrees[treeid]->dialogNodes[0];
+	PerformDialogue(treeid);
 
 	return ret;
 }
@@ -40,11 +29,11 @@ bool j1DialogSystem::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
-		treeid = 0;
 		App->ui_manager->DeleteAllUIElements();
+		treeid = 0;
 		currentNode = dialogTrees[treeid]->dialogNodes[0];
 		input = 7;
-		PerformDialogue();
+		PerformDialogue(treeid);
 	}
 		
 
@@ -52,60 +41,53 @@ bool j1DialogSystem::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
-		treeid = 1;
 		App->ui_manager->DeleteAllUIElements();
+		treeid = 1;
 		currentNode = dialogTrees[treeid]->dialogNodes[0];
 		input = 7;
-		PerformDialogue();
+		PerformDialogue(treeid);
 	}
 
 
 
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 	{
-		treeid = 2;
 		App->ui_manager->DeleteAllUIElements();
+		treeid = 2;
 		currentNode = dialogTrees[treeid]->dialogNodes[0];
 		input = 7;
-		PerformDialogue();
+		PerformDialogue(treeid);
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
 		App->ui_manager->DeleteAllUIElements();
 		input = 0;
-		PerformDialogue();
+		PerformDialogue(treeid);
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
 	{
 		App->ui_manager->DeleteAllUIElements();
 		input = 1;
-		PerformDialogue();
+		PerformDialogue(treeid);
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
 	{
 		App->ui_manager->DeleteAllUIElements();
 		input = 2;
-		PerformDialogue();
+		PerformDialogue(treeid);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 	{
 		App->ui_manager->DeleteAllUIElements();
-		currentNode = dialogTrees[treeid]->dialogNodes[0];
 		dialogTrees[treeid]->karma = 0;
+		currentNode = dialogTrees[treeid]->dialogNodes[0];
 		input = 7;
-		PerformDialogue();
+		PerformDialogue(treeid);
 	}
 		
-	return ret;
-}
-
-bool j1DialogSystem::PostUpdate()
-{
-	bool ret = true;
-	
 	return ret;
 }
 
@@ -122,10 +104,11 @@ bool j1DialogSystem::CleanUp()
 		delete dialogTrees[j];
 	}
 	dialogTrees.clear();
+
 	return ret;
 }
 
-void j1DialogSystem::PerformDialogue()
+void j1DialogSystem::PerformDialogue(int tr_id)
 {
 	if (dialogTrees.empty())
 		LOG("TreeEmpty");
@@ -135,12 +118,12 @@ void j1DialogSystem::PerformDialogue()
 		//Find the next node 
 		if (input >= 0 && input < currentNode->dialogOptions.size()) //Only if the input is valid
 		{
-			for (int j = 0; j < dialogTrees[treeid]->dialogNodes.size(); j++)
+			for (int j = 0; j < dialogTrees[tr_id]->dialogNodes.size(); j++)
 			{
-				if (currentNode->dialogOptions[input]->nextnode == dialogTrees[treeid]->dialogNodes[j]->id) //If the option id is the same as one of the nodes ids in the tree
+				if (currentNode->dialogOptions[input]->nextnode == dialogTrees[tr_id]->dialogNodes[j]->id) //If the option id is the same as one of the nodes ids in the tree
 				{
 					CheckForKarma(currentNode);
-					currentNode = dialogTrees[treeid]->dialogNodes[j]; // we assign our node pointer to the next node in the tree				
+					currentNode = dialogTrees[tr_id]->dialogNodes[j]; // we assign our node pointer to the next node in the tree				
 					break;
 				}
 			}
@@ -148,33 +131,33 @@ void j1DialogSystem::PerformDialogue()
 	}
 	else if (CompareKarma() == false)
 	{
-		for (int i = 0; i < dialogTrees[treeid]->dialogNodes.size(); i++)
+		for (int i = 0; i < dialogTrees[tr_id]->dialogNodes.size(); i++)
 		{
-			// We search the mood of the bad response -1 = bad response 0 = neutral 1 = good response
-			if (dialogTrees[treeid]->karma == dialogTrees[treeid]->dialogNodes[i]->karma)
+			// We search the mood of the bad response bad response = -1  / neutral = 0
+			if (dialogTrees[tr_id]->karma == dialogTrees[tr_id]->dialogNodes[i]->karma)
 			{
-				currentNode = dialogTrees[treeid]->dialogNodes[i]; //This node is the bad response from the npc
+				currentNode = dialogTrees[tr_id]->dialogNodes[i]; //This node is the bad response from the npc
 			}
 		}
 	}
 
 	//Put the player's name in the lines of the npc dialog
-	
 	for (int i = 0; i < currentNode->text.size(); i++)
 	{		
 		size_t found = currentNode->text.find("PLAYERNAME");
 		if (found != std::string::npos)
 			currentNode->text.replace(currentNode->text.find("PLAYERNAME"), 10, "Enrique");
 	}
+	// Print the dialog in the screen
 	BlitDialog();
 }
 
 void j1DialogSystem::BlitDialog()
 {
-	App->ui_manager->AddLabel(180, 200, currentNode->text.c_str(), 50, App->ui_manager->screen, WHITE, "fonts/Final_Fantasy_font.ttf", this);
-	int space = 220;
+	App->ui_manager->AddLabel(150, 180, currentNode->text.c_str(), 50, App->ui_manager->screen, WHITE, "fonts/Final_Fantasy_font.ttf", this);
+	int space = 200;
 	for (int i = 0; i < currentNode->dialogOptions.size(); i++)
-		App->ui_manager->AddLabel(180, space += 30, currentNode->dialogOptions[i]->text.c_str(), 45, App->ui_manager->screen, GREEN, "fonts/Final_Fantasy_font.ttf", this);
+		App->ui_manager->AddLabel(150, space += 30, currentNode->dialogOptions[i]->text.c_str(), 45, App->ui_manager->screen, GREEN, "fonts/Final_Fantasy_font.ttf", this);
 
 }
 
@@ -190,10 +173,6 @@ bool j1DialogSystem::CompareKarma()
 
 void j1DialogSystem::CheckForKarma(DialogNode* karmaNode)
 {
-	//int newkarma = dialogTrees[treeid]->karma += karmaNode->dialogOptions[input].karma;
-	//tree = tree_file.child("dialogtree");
-	//tree.append_attribute("karma") = newkarma;
-
 	dialogTrees[treeid]->karma += karmaNode->dialogOptions[input]->karma;
 }
 

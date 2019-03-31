@@ -52,7 +52,7 @@
   </dialogtree>
   
     <dialogtree treeid="2" karma="0">
-    <node line="Hello PLAYERNAME " id="0">
+    <node line="Hello PLAYERNAME watcha doin'? " id="0">
       <option  line="Supp Noob" nextnode="1"/>
       <option line="Hello strange voice" nextnode="2"/>
     </node>

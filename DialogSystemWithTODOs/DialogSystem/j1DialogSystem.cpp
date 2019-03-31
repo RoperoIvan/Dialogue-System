@@ -10,26 +10,16 @@ j1DialogSystem::j1DialogSystem()
 {
 }
 
-bool j1DialogSystem::Awake(pugi::xml_node& node)
+j1DialogSystem::~j1DialogSystem()
 {
-	bool ret = true;
-
-	return ret;
 }
 
 bool j1DialogSystem::Start()
 {
 	bool ret = true;
 	LoadDialogue("Dialog.xml");
-	currentNode = dialogTrees[0]->dialogNodes[0];
-	PerformDialogue();
-
-	return ret;
-}
-
-bool j1DialogSystem::PreUpdate()
-{
-	bool ret = true;
+	currentNode = dialogTrees[treeid]->dialogNodes[0];
+	PerformDialogue(treeid);
 
 	return ret;
 }
@@ -40,11 +30,11 @@ bool j1DialogSystem::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
-		treeid = 0;
 		App->ui_manager->DeleteAllUIElements();
+		treeid = 0;
 		currentNode = dialogTrees[treeid]->dialogNodes[0];
 		input = 7;
-		PerformDialogue();
+		PerformDialogue(treeid);
 	}
 		
 
@@ -52,60 +42,53 @@ bool j1DialogSystem::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
-		treeid = 1;
 		App->ui_manager->DeleteAllUIElements();
+		treeid = 1;
 		currentNode = dialogTrees[treeid]->dialogNodes[0];
 		input = 7;
-		PerformDialogue();
+		PerformDialogue(treeid);
 	}
 
 
 
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 	{
-		treeid = 2;
 		App->ui_manager->DeleteAllUIElements();
+		treeid = 2;
 		currentNode = dialogTrees[treeid]->dialogNodes[0];
 		input = 7;
-		PerformDialogue();
+		PerformDialogue(treeid);
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
 		App->ui_manager->DeleteAllUIElements();
 		input = 0;
-		PerformDialogue();
+		PerformDialogue(treeid);
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
 	{
 		App->ui_manager->DeleteAllUIElements();
 		input = 1;
-		PerformDialogue();
+		PerformDialogue(treeid);
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
 	{
 		App->ui_manager->DeleteAllUIElements();
 		input = 2;
-		PerformDialogue();
+		PerformDialogue(treeid);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 	{
 		App->ui_manager->DeleteAllUIElements();
-		currentNode = dialogTrees[treeid]->dialogNodes[0];
 		dialogTrees[treeid]->karma = 0;
+		currentNode = dialogTrees[treeid]->dialogNodes[0];		
 		input = 7;
-		PerformDialogue();
+		PerformDialogue(treeid);
 	}
 		
-	return ret;
-}
-
-bool j1DialogSystem::PostUpdate()
-{
-	bool ret = true;
-	
 	return ret;
 }
 
@@ -125,7 +108,7 @@ bool j1DialogSystem::CleanUp()
 	return ret;
 }
 
-void j1DialogSystem::PerformDialogue()
+void j1DialogSystem::PerformDialogue(int trId)
 {
 	if (dialogTrees.empty())
 		LOG("TreeEmpty");
@@ -180,7 +163,7 @@ bool j1DialogSystem::LoadDialogue(const char* file)
 
 	if (result == NULL)
 	{
-		LOG("Could not load map xml file %s. pugi error: %s", file, result.description());
+		LOG("Could not load xml file %s. pugi error: %s", file, result.description());
 		ret = false;
 	}
 	else
