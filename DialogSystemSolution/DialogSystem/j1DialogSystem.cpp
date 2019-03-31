@@ -146,7 +146,7 @@ void j1DialogSystem::PerformDialogue(int tr_id)
 	{		
 		size_t found = currentNode->text.find("PLAYERNAME");
 		if (found != std::string::npos)
-			currentNode->text.replace(currentNode->text.find("PLAYERNAME"), 10, "Enrique");
+			currentNode->text.replace(currentNode->text.find("PLAYERNAME"), 10, "Ivan");
 	}
 	// Print the dialog in the screen
 	BlitDialog();
