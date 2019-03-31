@@ -206,9 +206,38 @@ public:
 
 ### What you should see
 
+<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/TODO1.JPG?raw=true"/>
 
 
-## TODO 2: Print the text of the first node
+## TODO 2: Change the PLAYERNAME tag to the player name in the dialog
+
+### What do you have to do
+
+
+### What you should see
+
+<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/TODO2.JPG?raw=true"/>
+
+## TODO 3:  Put your own dialog options 
+
+### What do you have to do
+
+
+### What you should see
+
+<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/TODO3.JPG?raw=true"/>
+
+## TODO 4:  Search which will be the next node in the tree
+
+### What do you have to do
+
+
+### What you should see
+
+<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/Webp.net-gifmaker%20(5).gif?raw=true"/>
+
+
+## TODO 5:  Write a bad option to say and a node with the NPCs's angry response
 
 ### What do you have to do
 
@@ -216,45 +245,163 @@ public:
 ### What you should see
 
 
-## TODO 3: Change the PLAYERNAME tag to the player name in the dialog
+## TODO 6:  Check the karma of the player
 
 ### What do you have to do
 
 
 ### What you should see
 
-
-## TODO 4:  Put your own dialog options 
-
-### What do you have to do
+<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/Webp.net-gifmaker%20(6).gif?raw=true"/>
 
 
-### What you should see
+## Solution TODO 1
+```
+bool j1DialogSystem::LoadDialogue(const char* file)
+{
+	bool ret = true;
+
+	pugi::xml_parse_result result = tree_file.load_file(file);
+
+	if (result == NULL)
+	{
+		LOG("Could not load map xml file %s. pugi error: %s", file, result.description());
+		ret = false;
+	}
+	else
+		LOG("XML was loaded succesfully!");
+
+	for (pugi::xml_node t = tree_file.child("dialogue").child("dialogtree"); t != NULL; t = t.next_sibling("dialogtree"))
+	{
+		DialogTree* tr = new DialogTree;
+		tr->treeid = t.attribute("treeid").as_int();
+		tr->karma = t.attribute("karma").as_int();
+		LoadTreeData(t, tr);
+		dialogTrees.push_back(tr);	
+	}
+	return ret;
+}
+
+```
+
+```
+bool j1DialogSystem::LoadTreeData(pugi::xml_node& trees, DialogTree* oak)
+{
+	bool ret = true;
+
+	//Filling the dialogue tree information
+	for (pugi::xml_node n = trees.child("node");n != NULL; n = n.next_sibling("node"))
+	{
+		DialogNode* node = new DialogNode;
+		node->text.assign(n.attribute("line").as_string());
+		node->id = n.attribute("id").as_int();
+		node->karma = n.attribute("karma").as_int();
+		LoadNodesDetails(n, node);
+		oak->dialogNodes.push_back(node);
+		
+	}
+	return ret;
+}
+```
+
+```
+bool j1DialogSystem::LoadNodesDetails(pugi::xml_node& text_node, DialogNode* npc)
+{
+	bool ret = true;
+	for (pugi::xml_node op = text_node.child("option"); op != NULL; op = op.next_sibling("option"))
+	{
+		DialogOption* option = new DialogOption;
+		option->text.assign(op.attribute("line").as_string());
+		option->nextnode = op.attribute("nextnode").as_int();
+		option->karma = op.attribute("karma").as_int();
+		npc->dialogOptions.push_back(option);
+	}
+	return ret;
+}
+```
+
+## Solution TODO 2
+
+```
+for (int i = 0; i < currentNode->text.size(); i++)
+	{
+		size_t found = currentNode->text.find("PLAYERNAME");
+		if (found != std::string::npos)
+			currentNode->text.replace(currentNode->text.find("PLAYERNAME"), 10, "Ivan");
+	}
+```
 
 
-## TODO 5:  Search which will be the next node in the tree
+## Solution TODO 3
 
-### What do you have to do
+```
+<dialogtree treeid="0" karma="0">
+    <node line="Hello PLAYERNAME, how are you?" id="0">
+      <option  line="You smell bad" nextnode="1" karma="-1"/>
+      <option line="Hello strange voice" nextnode="2"/>
+    </node>
+```
+
+## Solution TODO 4
+
+```
+for (int j = 0; j < dialogTrees[treeid]->dialogNodes.size(); j++)
+{
+	if (currentNode->dialogOptions[input]->nextnode == dialogTrees[treeid]->dialogNodes[j]->id)
+	{
+		currentNode = dialogTrees[treeid]->dialogNodes[j]; 			
+		break;
+	}
+}
+```
+
+## Solution TODO 5
+
+```
+<dialogtree treeid="0" karma="0">
+    <node line="Hello PLAYERNAME, how are you?" id="0">
+      <option  line="You smell bad" nextnode="1" karma="-1"/>
+      <option line="Hello strange voice" nextnode="2"/>
+    </node>
+```
+```
+ <node line="I won't talk to you, you insulted me!" id="5" karma="-1">
+      <option line="Ok then..." nextnode="6"/>
+    </node>
+```
 
 
-### What you should see
+## Solution TODO 6
 
-
-## TODO 6:  Write a bad response that will make the NPCs angry
-
-### What do you have to do
-
-
-### What you should see
-
-
-## TODO 7:  Check the karma of the player
-
-### What do you have to do
-
-
-### What you should see
-
+```
+if (CompareKarma() == true)
+	{
+		//Find the next node 
+		if (input >= 0 && input < currentNode->dialogOptions.size()) //Only if the input is valid
+		{
+			for (int j = 0; j < dialogTrees[treeid]->dialogNodes.size(); j++)
+			{
+				if (currentNode->dialogOptions[input]->nextnode == dialogTrees[treeid]->dialogNodes[j]->id) //If the option id is the same as one of the nodes ids in the tree
+				{
+					CheckForKarma(currentNode);
+					currentNode = dialogTrees[treeid]->dialogNodes[j]; // we assign our node pointer to the next node in the tree				
+					break;
+				}
+			}
+		}
+	}
+	else if(CompareKarma() == false)
+	{
+		for (int i = 0; i < dialogTrees[treeid]->dialogNodes.size(); i++)
+		{
+			// We search the mood of the bad response -1 = bad response 0 = neutral 1 = good response
+			if (dialogTrees[treeid]->karma == dialogTrees[treeid]->dialogNodes[i]->karma) 
+			{
+				currentNode = dialogTrees[treeid]->dialogNodes[i]; //This node is the bad response from the npc
+			}
+		}
+	}	
+```
 
 
 # What we could improve
