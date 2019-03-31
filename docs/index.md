@@ -2,9 +2,11 @@
 
 [Link to repository](https://github.com/RoperoIvan/Dialogue-System)
 
-[Link to the exercises]()
+[Link to both projects](https://github.com/RoperoIvan/Dialogue-System/releases/tag/Both)
 
-[Link to the solution]()
+[Link to the exercises](https://github.com/RoperoIvan/Dialogue-System/releases/tag/TODOs)
+
+[Link to the solution](https://github.com/RoperoIvan/Dialogue-System/releases/tag/Solution)
 
 [Link to the presentation]()
 
@@ -75,7 +77,9 @@ We will use a tree as structure of a dialogue with, for example, an NPC. Each tr
 
 # Ways to define de data
 
-You could really make a branching system dialog directly from the code, but putting each and every one of the lines of dialogue in different strings is expensive and hardcode the code is not a good habit of programming. That's why we will use XML as a container for all our lines of game dialogues. The choice in addition to XML is justified by easy use and little complexity when reading the file format. In this way both programmers and designers or artists can quickly access the dialogues to make possible changes of NPCs, add new conversations and in general make changes in the narrative of the game.
+You could really make a branching system dialog directly from the code, but putting each and every one of the lines of dialogue in different strings is expensive and hardcode the code is not a good habit of programming. That's why we will use XML as a container for all our lines of game dialogues. 
+
+The choice in addition to XML is justified by easy use and little complexity when reading the file format. In this way both programmers and designers or artists can quickly access the dialogues to make possible changes of NPCs, add new conversations and in general make changes in the narrative of the game.
 
 The structure that we will follow to make our dialogue tree is the following:
 
