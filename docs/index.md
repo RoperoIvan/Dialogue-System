@@ -66,8 +66,6 @@ You could really make a branching system dialog directly from the code, but putt
 
 The structure that we will follow to make our dialogue tree is the following:
 
-<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/Webp.net-gifmaker%20(4).gif?raw=true"/>
-
 Our dialog XML will be able to contain multiple dialogue trees, these being each one of the interactions with the NPCs of our game. Within the trees, we will have different dialog nodes, making the role of the different lines of dialogue of the NPC and each of these nodes will contain the different options that the player can choose and that will take him to other nodes within the tree of dialogue.
 
 ```
@@ -186,6 +184,8 @@ public:
 
 - In the same way that the other function will load attributes the attributes of the first node and activate the last function that will load the attributes of each one of the options of that node. Looping the 3 functions we will load the whole tree and we will have it ready.
 
+<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/Webp.net-gifmaker%20(4).gif?raw=true"/>
+
 - The next thing would be to choose which is the conversation node that we want to show. What we will do is to have a DialogNodes pointer that will take care of going from one node to another as a guide to the dialogue that the player will follow. 
 
 - We choose which option the player chooses and we would look for a node that had the same id that that option marks as the next node. When we find it, we will assign that node to our DialogNodes pointer.
@@ -197,6 +197,69 @@ public:
 
 
 # TODO's and solutions
+
+## TODO 1: Load the data from the XML
+
+### What do you have to do
+
+
+
+### What you should see
+
+
+
+## TODO 2: Print the text of the first node
+
+### What do you have to do
+
+
+### What you should see
+
+
+## TODO 3: Change the PLAYERNAME tag to the player name in the dialog
+
+### What do you have to do
+
+
+### What you should see
+
+
+## TODO 4:  Put your own dialog options 
+
+### What do you have to do
+
+
+### What you should see
+
+
+## TODO 5:  Search which will be the next node in the tree
+
+### What do you have to do
+
+
+### What you should see
+
+
+## TODO 6:  Write a bad response that will make the NPCs angry
+
+### What do you have to do
+
+
+### What you should see
+
+
+## TODO 7:  Check the karma of the player
+
+### What do you have to do
+
+
+### What you should see
+
+
+
+# What we could improve
+
+
 
 # Links to documentation
 
