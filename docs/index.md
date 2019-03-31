@@ -60,11 +60,20 @@ As mentioned previously, the most used system is the Branching dialog. It is als
 
 We will use a tree as structure of a dialogue with, for example, an NPC. Each tree has nodes, that are each of the different possible interactions between the player and the NPC. Finally within these nodes are the options, that will be as the name says the possibilities of choice that the player will have.
 
+## Ways to define de data
+
+<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/Webp.net-gifmaker%20(4).gif?raw=true"/>
+
+
 ## Code Structure
+
+### Classes
 
 The code is made up of 4 classes: 
 The first would be the options, which carry 2 int, the next node to which the conversation will go and a modifier of the state of the npc and 1 string that will be the line of dialogue that will form the option that the player will choose.
-```class DialogOption
+
+```
+class DialogOption
 {
 public:
 	DialogOption() {};
@@ -75,7 +84,9 @@ public:
 	int karma;
 };
 ```
-The next class is the nodes that you will have as well as the options, 2 int, your node id and the karma of that NPC dialog. And finally the string that would be the line of dialogue of the NPC.
+
+The next class is the nodes that you will have as well as the options, 2 int, your node id and the karma of that NPC dialog. A string that would be the line of dialogue of the NPC and a vector of DialogOptions.
+
 ```
 class DialogNode
 {
@@ -87,7 +98,9 @@ public:
 	int id, karma;
 };
 ```
-The third class is the trees that in this case will only have 2 int, their tree id so that we can have different dialog trees and the other int that will work as a karma comparator between the player and the NPC.
+
+The third class is the trees that in this case will only have 2 int, their tree id so that we can have different dialog trees and the other int that will work as a karma comparator between the player and the NPC and a vector variable of DialogNodes.
+
 ```
 class DialogTree
 {
@@ -100,7 +113,9 @@ public:
 	int treeid, karma;
 };
 ```
+
 And finally the dialog class that will be the one that manages the whole system and that mainly will do three important functions. Load the tree data, find the correct node and paint the dialog.
+
 ```
 class j1DialogSystem : public j1Module
 {
@@ -123,23 +138,22 @@ public:
 	void CheckForKarma(DialogNode* karmaNode);
 private:
 	std::vector <DialogTree*> dialogTrees;
-	std::list <GUI_Button*> options_buttons;
 	DialogNode* currentNode;
 	int input = 0, treeid = 0;
 public:
 	pugi::xml_document	tree_file;
 };
 ```
-<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/Tree.png?raw=true"  height="100" width="100"/>
 
-<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/node.png?raw=true"  height="100" width="100"/>
+### How it works
 
-<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/option.png?raw=true"  height="100" width="100"/>
+First we will have to load the data from the XML, which will be our container of dialogs. With the three load functions of the dialog class you will first enter the first tree, inside the first tree will load its attributes and call the second function that is responsible for loading the nodes. In the same way that the other function will load attributes the attributes of the first node and activate the last function that will load the attributes of each one of the options of that node. Looping the 3 functions we will load the whole tree and we will have it ready.
 
-<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/currentNode.png?raw=true"  height="84" width="168"/>
+The next thing would be to choose which is the conversation node that we want to show. What we will do is to have a DialogNodes pointer that will take care of going from one node to another as a guide to the dialogue that the player will follow. We choose which option the player chooses and we would look for a node that had the same id that that option marks as the next node. When we find it, we will assign that node to our DialogNodes pointer.
 
-## Ways to define de data
+<img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/Webp.net-gifmaker%20(3).gif?raw=true"/>
 
+We only need to paint the node on the screen with your options, with a couple of labels and looped the label of the options and everything would be ready to work.
 
 ## TODO's and solutions
 
