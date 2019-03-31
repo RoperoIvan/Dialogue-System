@@ -12,7 +12,7 @@
 
 # Dialogue Systems importance
 
-A few years before video games emerged, exactly in 1966 a professor of computer science at MIT, Joseph Weizenbaum, developed a program that allowed emulating a conversation with a therapist. That program would be called ELIZA and would be the first attempt to try to emulate a conversation between humans and machines. 
+A few years before video games emerged, exactly in 1966 a professor of computer science at MIT, Joseph Weizenbaum, developed a program that allowed to emulate a conversation with a therapist. That program would be called ELIZA and would be the first attempt to try to emulate a conversation between humans and machines. 
 
 <img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/eliza_4.png?raw=true"/>
 
@@ -20,7 +20,7 @@ It did not take too long for videogames to start using dialogues in some way to 
 
 <img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/giphy.gif?raw=true"/>
 
-A few years later, Monkey Island in 1990 will revolutionize the market with its new system of choice of dialogue that allowed the player to give the feeling of freedom to choose what he wanted to say to other NPCs. Games like the Fallout saga depend tremendously on the dialogue, on how the player interacts with the NPCs and influences them to forge their story within the game.
+A few years later, Monkey Island in 1990 would revolutionize the market with its new system of choice of dialogue that allowed the player to give the feeling of freedom to choose what he wanted to say to other NPCs. Games like the Fallout saga depend tremendously on the dialogue, on how the player interacts with the NPCs and influences them to forge their story within the game.
 
 <img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/giphy%20(2).gif?raw=true"/>
 
@@ -31,13 +31,13 @@ But the dialogues not only depend in how good the lines between interactions are
 
 ## Non-branching Dialog
 
-This type of dialogue is the typical interaction between the player and an NPC, where the player can not choose what to say, and is simply limited to normally pressing a button for the dialogue to continue, in this case the game itself will be chosen by the player what his character will say. The conversation may change if the player talks to the NPC again but has no control over what his character says.
+This type of dialogue is the typical interaction between the player and an NPC, where the player can not choose what to say, and is simply limited to, normally, press a button for the dialogue to continue, in this case the game itself, will choose what the player character will say. The conversation may change if the player talks to the NPC again but has no control over what his character says.
 
 <img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/giphy%20(1).gif?raw=true"/>
 
 ## Branching Dialog
 
-In this type of dialog the player has more control about what he/she wants to say. The player can access different paths that form end up forming a dialogue tree by which player navigates, where the path he travels will depend on the decisions made by the player.
+In this type of dialog the player has more control about what he/she wants to say. The player can access different paths that end up forming a dialogue tree which player navigates, where the path he travels will depend on the decisions made by him.
 
 <img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/dt_sample.png?raw=true " height="433" width="380" />
 
@@ -47,17 +47,17 @@ Normally, the decisions that the player makes during the dialogue will not only 
 
 ## Hub Dialog
 
-This system could be considered a variant of the previous one since the only difference between the two is that in a Hub system the player can go back to the options of dialogue at the beginning to be able to know each and every one of the possible answers of the NPC giving the possibility to the player to know all possible information. The level of freedom of decision is greater in this type of dialogue. One of its negative points is that it is not too immersive since having total control over the conversation is not too realistic. Many RPGs use this type of system, games mentioned above as Fallout or Elder Scrolls of the same company make use of the system.
+This system could be considered a variant of the previous one since the only difference between the two is that in a Hub system the player can go back to the options at the beginning of the dialogue to be able to know each and every one of the possible answers of the NPC, giving the possibility to the player to know all possible information. The level of freedom of decision is greater in this type of dialogue. One of its negative points is that it is not too immersive since having total control over the conversation is not too realistic. Many RPGs use this type of system, games mentioned above as Fallout or Elder Scrolls of the same company make use of the system.
 
 <img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/Vxnmct.gif?raw=true"/>
 
 ## Parser Driven Dialog
 
-Before ELIZA was mentioned as the first RPG, it would also have in this case the achievement of being also the first programs they use in their input text parser. The complexity of this system is so large and complicated that it is rarely seen in video games. One of the few examples is the game Façade. A negative point that has this type of esque systems often misinterpret what the player has written, which usually unravels in that the NPC does not know how to react or have totally different reactions to what the player expected from the NPC.
+ELIZA was the first program to use in their input a text parser. The complexity of this system is so large and complicated that it is rarely seen in video games. One of the few examples is the game Façade. A negative point that has this type of esque systems often misinterpret what the player has written, which usually unravels in that the NPC does not know how to react or have totally different reactions to what the player expected from the NPC.
 
 <img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/BraveGargantuanEskimodog-small.gif?raw=true"/>
 
-In this type of dialog the player writes directly what he wants to say to the NPC. Through a database the syntactic composition of the phrase formed by the player is analyzed, the game interprets the phrase and forms a response for the NPC.
+In this type of dialog the player writes directly what he wants to say to the NPC. Through a database, the syntactic composition of the phrase formed by the player is analyzed, the game interprets the phrase and forms a response for the NPC.
 
 <img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/1-s2.0-S2468232216301081-gr2.jpg?raw=true"/>
 
@@ -69,7 +69,7 @@ This system doesn't use dialog to interact with the other NPCs. Instead the play
 
 ## Which we will use
 
-As mentioned previously, the most used system is the Branching dialog. It is also the one that will be most useful in our project because if we want we can choose between non branching and branching with very little effort. The complexity of the code is not high either, so implementing it in our project will be simple and we should not have any problem.
+As mentioned previously, the most used system is the Branching dialog. It is also the one that will be most useful for our project because if we want, we can choose between non branching and branching with very little effort. The complexity of the code is not high either, so implementing it in our project will be simple and we should not have any problem.
 
 <img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/Untitled%20Diagram.jpg?raw=true"/>
 
@@ -79,7 +79,7 @@ We will use a tree as structure of a dialogue with, for example, an NPC. Each tr
 
 You could really make a branching system dialog directly from the code, but putting each and every one of the lines of dialogue in different strings is expensive and hardcode the code is not a good habit of programming. That's why we will use XML as a container for all our lines of game dialogues. 
 
-The choice in addition to XML is justified by easy use and little complexity when reading the file format. In this way both programmers and designers or artists can quickly access the dialogues to make possible changes of NPCs, add new conversations and in general make changes in the narrative of the game.
+The choice in addition to XML is justified by the easy use, and the little complexity whenyou have to read the file format. In this way programmers, designers and artists can quickly access the dialogues to make possible changes of NPCs, add new conversations and in general make changes in the narrative of the game.
 
 The structure that we will follow to make our dialogue tree is the following:
 
