@@ -180,13 +180,21 @@ public:
 
 ## How it works
 
-First we will have to load the data from the XML, which will be our container of dialogs. With the three load functions of the dialog class you will first enter the first tree, inside the first tree will load its attributes and call the second function that is responsible for loading the nodes. In the same way that the other function will load attributes the attributes of the first node and activate the last function that will load the attributes of each one of the options of that node. Looping the 3 functions we will load the whole tree and we will have it ready.
+- First we will have to load the data from the XML, which will be our container of dialogs. 
 
-The next thing would be to choose which is the conversation node that we want to show. What we will do is to have a DialogNodes pointer that will take care of going from one node to another as a guide to the dialogue that the player will follow. We choose which option the player chooses and we would look for a node that had the same id that that option marks as the next node. When we find it, we will assign that node to our DialogNodes pointer.
+- With the three load functions of the dialog class you will first enter the first tree, inside the first tree will load its attributes and call the second function that is responsible for loading the nodes. 
+
+- In the same way that the other function will load attributes the attributes of the first node and activate the last function that will load the attributes of each one of the options of that node. Looping the 3 functions we will load the whole tree and we will have it ready.
+
+- The next thing would be to choose which is the conversation node that we want to show. What we will do is to have a DialogNodes pointer that will take care of going from one node to another as a guide to the dialogue that the player will follow. 
+
+- We choose which option the player chooses and we would look for a node that had the same id that that option marks as the next node. When we find it, we will assign that node to our DialogNodes pointer.
+
+- Finally we just need to paint the node on the screen with your options, with a couple of labels and looped the label of the options and everything would be ready to work.
+
 
 <img src="https://github.com/RoperoIvan/Dialogue-System/blob/master/docs/Webpage%20images/Webp.net-gifmaker%20(3).gif?raw=true"/>
 
-We only need to paint the node on the screen with your options, with a couple of labels and looped the label of the options and everything would be ready to work.
 
 # TODO's and solutions
 
