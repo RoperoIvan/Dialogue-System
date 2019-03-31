@@ -20,7 +20,7 @@ bool j1DialogSystem::Awake(pugi::xml_node& node)
 bool j1DialogSystem::Start()
 {
 	bool ret = true;
-	LoadDialogue("Tree.xml");
+	LoadDialogue("Dialog.xml");
 	currentNode = dialogTrees[0]->dialogNodes[0];
 	PerformDialogue();
 

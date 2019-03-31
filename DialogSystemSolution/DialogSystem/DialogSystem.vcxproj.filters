@@ -127,7 +127,7 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Game\config.xml" />
-    <Xml Include="Game\Tree.xml" />
+    <Xml Include="Game\Dialog.xml" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="UI">
