@@ -142,11 +142,9 @@ void j1DialogSystem::PerformDialogue(int tr_id)
 	}
 
 	//Put the player's name in the lines of the npc dialog
-	for (int i = 0; i < currentNode->text.size(); i++)
-	{		
-		size_t found = currentNode->text.find("PLAYERNAME");
-		if (found != std::string::npos)
-			currentNode->text.replace(currentNode->text.find("PLAYERNAME"), 10, "Ivan");
+	while(currentNode->text.find("PLAYERNAME") != std::string::npos)
+	{	
+		currentNode->text.replace(currentNode->text.find("PLAYERNAME"), 10, "Ivan");
 	}
 	// Print the dialog in the screen
 	BlitDialog();
